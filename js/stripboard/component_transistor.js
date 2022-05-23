@@ -141,7 +141,7 @@ SC.Transistor.prototype.render = function (aContext) {
     aContext.fillStyle = 'white';
     aContext.textBaseline = 'middle';
     aContext.textAlign = 'left';
-    ofs = 12 * SC.v.zoom;
+    ofs = 4 * SC.v.zoom;
     aContext.strokeText(this.pinout.charAt(0), a.x + ofs, a.y);
     aContext.strokeText(this.pinout.charAt(1), c.x + ofs, c.y - ofs);
     aContext.strokeText(this.pinout.charAt(2), b.x + ofs, b.y);
