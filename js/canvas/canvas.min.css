@@ -1,0 +1,1598 @@
+/* Canvas (custom build 2022-05-23--17-06-12) */
+
+/*
+XUL-like hbox/vbox layout model using flexbox
+
+Class               Meaning
+
+left center right   Horizontal alignment
+top middle bottom   Verical alignment
+flex                flex: 1
+scrollX             overflowX: scroll
+scrollY             overflowY: scroll
+body.full           full page size of body
+
+Note: You must explicitly choose which box to use, you cannot just
+      use "center" you must use "hbox center" or "vbox center"
+*/
+
+body.full {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+}
+body.hbox, body.vbox {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.debugoutline {
+    outline: 1px dashed red;
+}
+.debugoutline > div {
+    outline: 1px dashed lime;
+}
+.debugoutline > div > div {
+    outline: 1px dashed blue;
+}
+.debugoutline > div > div > div {
+    outline: 1px dashed yellow;
+}
+.debugoutline > div > div > div > div {
+    outline: 1px dashed fuchsia;
+}
+.debugoutline > div > div > div > div > div {
+    outline: 1px dashed white;
+}
+.debugoutline > div > div > div > div > div > div {
+    outline: 1px dashed pink;
+}
+
+/* hbox */
+.hbox.outline, .vbox.outline {
+    outline: 1px dashed lime;
+}
+.hbox.full, .vbox.full {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    bottom: 0;
+}
+.hbox {
+    display: flex;
+    box-sizing: border-box;
+}
+.hbox.flex {
+    flex: 1;
+    width: 100%;
+}
+.hbox > .hbox .flex {
+    height: 100%;
+}
+
+.hbox.scrollX {
+    overflow-x: scroll;
+}
+.hbox.scrollY {
+    overflow-y: scroll;
+}
+.hbox.top {
+    justify-content: flex-start;
+    align-self: flex-start;
+}
+.hbox.middle {
+    align-items: center;
+}
+.hbox.center {
+    justify-content: center;
+}
+.hbox.right {
+    justify-content: flex-end;
+}
+.hbox.bottom {
+    align-items: flex-end;
+    align-self: flex-end;
+}
+
+/* vbox */
+
+.vbox {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.vbox > .vbox .flex {
+    width: 100%;
+}
+
+.vbox.scrollX {
+    overflow-x: scroll;
+}
+.vbox.scrollY {
+    overflow-y: scroll;
+}
+.vbox.flex {
+    flex: 1;
+}
+.vbox.top {
+    align-self: flex-start;
+}
+.vbox.left {
+    align-items: flex-start;
+}
+.vbox.center {
+    align-items: center;
+}
+.vbox.middle {
+    justify-content: center;
+}
+.vbox.right {
+    align-items: flex-end;
+}
+.vbox.bottom {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+
+/* relative/absolute */
+
+.hbox.relative, .vbox.relative {
+    position: relative;
+}
+
+.hbox.absolute, .vbox.absolute {
+    position: absolute;
+}
+
+canvas.hbox.absolute, canvas.vbox.absolute {
+    left: 0;
+    top: 0;
+}
+
+.ca_context_menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: white;
+    color: black;
+    border: 0 solid black;
+    box-shadow: 0 0 1ex black;
+    list-style: none;
+    margin: 0;
+    padding: 0.5ex;
+    border-radius: 0.5ex;
+    overflow-y: auto;
+    max-width: 90vh;
+    max-height: 90vh;
+}
+.ca_context_menu li {
+    white-space: nowrap;
+    user-select: none;
+}
+.ca_context_menu li:hover {
+    background-color: skyblue;
+    cursor: pointer;
+}
+
+/* hamburger menu */
+
+.hamburger {
+    box-sizing: border-box;
+    outline: 0 solid red;
+    display: flex;
+    align-items: center;
+}
+
+.hamburger .visible {
+    flex: 1;
+    overflow-x: hidden;
+    border: 0 solid blue;
+    display: flex;
+}
+
+.hamburger .visible .hide {
+    display: none;
+}
+
+.hamburger section {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.hamburger .menu_container {
+    position: relative;
+    align-self: flex-end;
+}
+
+.hamburger .menu {
+    position: absolute;
+    box-shadow: 0 0 1ex rgba(0,0,0,0.7);
+    right: 0.1ex;
+    top: 0.1ex;
+    background-color: white;
+    border: 0 solid black;
+    border-radius: 0.5ex;
+    padding: 1ex;
+}
+.hamburger .menu.hide {
+    display: none;
+}
+
+.hamburger .menu section {
+}
+
+.hamburger .menu button {
+    margin-top: 0.5ex;
+}
+
+.hamburger .menu select {
+    margin-top: 0.5ex;
+}
+
+/* full screen with lerp charts */
+
+.canvas_settings {
+    color: black;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.canvas_settings.hide {
+    display: none;
+}
+
+.canvas_settings nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.canvas_settings nav h1 {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    text-align: center;
+    font-size: large;
+}
+
+.canvas_settings main {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.canvas_settings nav button {
+    border: none;
+    outline: none;
+}
+
+.ca_lerp_manager_black, .ca_lerp_manager_black button {
+    color: white;
+    background-color: black;
+}
+.ca_lerp_manager_white, .ca_lerp_manager_white button {
+    color: black;
+    background-color: white;
+}
+.ca_lerp_manager_transparent, .ca_lerp_manager_transparent button {
+    color: lime;
+    background-color: transparent;
+}
+
+.canvas_settings.bg_transparent {
+    color: black;
+    background-color: transparent;
+}
+
+.canvas_settings_section {
+    display: inline-block;
+    position: relative;
+}
+.canvas_settings_section.full {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+.canvas_settings_section.full canvas {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.canvas_settings_section button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 0ex;
+    border: 1px solid gray;
+    outline: none;
+}
+
+.canvas_settings_section ul {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: black;
+    background-color: lime;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
+
+.canvas_settings_section li:hover {
+    background-color: skyblue;
+    cursor: pointer;
+}
+
+.canvas_settings_section canvas {
+    width: 5cm;
+    height: 3cm;
+    margin: 0 1ex 1ex 0;
+}
+
+table.highlight_rows tr:hover {
+    background-color: skyblue;
+}
+/*
+Style for range input
+Author: Ana Tudor
+https://css-tricks.com/the-backgound-clip-property-and-use-cases/
+*/
+
+input[type=range].ana {
+  box-sizing: border-box;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range].ana:focus {
+  outline: none;
+}
+input[type=range].ana:disabled {
+  filter: grayscale(100%);
+}
+
+/* chrome */
+
+input[type=range].ana::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -.375em;
+  box-sizing: border-box;
+  border: none;
+  padding: .375em;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  box-shadow: 0 .375em .5em -.125em #808080,  inset 0 -.25em .5em -.125em #bbb;
+  background: linear-gradient(#c5c5c5, #efefef) content-box, linear-gradient(#fdfdfd, #c4c4c4) border-box;
+  cursor: pointer;
+}
+input[type=range].ana:hover::-webkit-slider-thumb {
+  background-color: white;
+  border-color: white;
+}
+input[type=range].ana:active::-webkit-slider-thumb {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 6px 6px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  border-color: white;
+}
+input[type=range].ana::-webkit-slider-runnable-track {
+  box-sizing: border-box;
+  border: none;
+  padding: .375em;
+  width: 100%;
+  height: 2em;
+  border-radius: 1.125em;
+  box-shadow: inset 0 -1px 1px #fff, inset 0 .5em .5em #c4c4c4, inset 0 0 0 .375em #efefef,  inset 0 1px .125em .375em black,  inset 0 0 0 1px #eee;
+  background: linear-gradient(#f5f5f5, #eeeeee 35%, #bfbfbf);
+}
+
+/* firefox */
+
+input[type=range].ana::-moz-focus-outer {
+    border: 0;
+}
+input[type=range].ana::-moz-range-thumb {
+  margin-top: -.375em;
+  box-sizing: border-box;
+  border: none;
+  padding: .375em;
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  box-shadow: 0 .375em .5em -.125em #808080,  inset 0 -.25em .5em -.125em #bbb;
+  background: linear-gradient(#c5c5c5, #efefef) content-box, linear-gradient(#fdfdfd, #c4c4c4) border-box;
+  cursor: pointer;
+}
+input[type=range].ana:hover::-moz-range-thumb {
+  background-color: white;
+  border-color: white;
+}
+input[type=range].ana:active::-moz-range-thumb {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 6px 6px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  border-color: white;
+}
+input[type=range].ana::-moz-range-track {
+  box-sizing: border-box;
+  border: none;
+  padding: .375em;
+  width: 100%;
+  height: 2em;
+  border-radius: 1.125em;
+  box-shadow: inset 0 -1px 1px #fff, inset 0 .5em .5em #c4c4c4, inset 0 0 0 .375em #efefef,  inset 0 1px .125em .375em black,  inset 0 0 0 1px #eee;
+  background: linear-gradient(#f5f5f5, #eeeeee 35%, #bfbfbf);
+}
+
+/* msie 11, edge */
+
+@media screen\0 {
+    input[type=range].ana {
+      margin: 0;
+      padding: 0;
+      height: 3em;
+      min-height: 3em;
+    }
+    input[type=range].ana::-ms-thumb {
+      margin-top: -.375em;
+      box-sizing: border-box;
+      border: none;
+      padding: .375em;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      box-shadow: 0 .375em .5em -.125em #808080,  inset 0 -.25em .5em -.125em #bbb;
+      background: linear-gradient(#c5c5c5, #efefef) content-box, linear-gradient(#fdfdfd, #c4c4c4) border-box;
+      background: linear-gradient(#fdfdfd, #c4c4c4) border-box;
+      cursor: pointer;
+    }
+    input[type=range].ana:hover::-ms-thumb {
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].ana:active::-ms-thumb {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 6px 6px rgba(0, 0, 0, 0.25);
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].ana::-ms-track {
+      box-sizing: border-box;
+      border: none;
+      padding: .375em;
+      width: 100%;
+      height: 2em;
+      border-radius: 1.125em;
+      box-shadow: inset 0 -1px 1px #fff, inset 0 .5em .5em #c4c4c4, inset 0 0 0 .375em #efefef,  inset 0 1px .125em .375em black,  inset 0 0 0 1px #eee;
+      background: linear-gradient(#f5f5f5, #eeeeee 35%, #bfbfbf);
+      color: transparent;
+    }
+    input[type=range].ana::-ms-fill-lower {
+      border-radius: 1em;
+      background-color: skyblue;
+      box-shadow: inset 0 0.1em 0.3em rgba(0,0,0,0.4), inset 0 -0.5em 0.5em rgba(0,0,0,0.1);
+    }
+}
+
+/* ms edge */
+
+@supports (-ms-ime-align:auto) {
+    input[type=range].ana {
+        min-height: 3em;
+    }
+    input[type=range].ana::-ms-thumb {
+      margin-top: -.375em;
+      box-sizing: border-box;
+      border: none;
+      padding: .375em;
+      width: 2em;
+      height: 2em;
+      border-radius: 50%;
+      box-shadow: 0 .375em .5em -.125em #808080,  inset 0 -.25em .5em -.125em #bbb;
+      background: linear-gradient(#c5c5c5, #efefef) content-box, linear-gradient(#fdfdfd, #c4c4c4) border-box;
+      cursor: pointer;
+    }
+    input[type=range].ana:hover::-ms-thumb {
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].ana:active::-ms-thumb {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 4px 5px rgba(0, 0, 0, 0.25);
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].ana::-ms-track {
+      box-sizing: border-box;
+      border: none;
+      padding: .375em;
+      width: 100%;
+      height: 2em;
+      border-radius: 1.125em;
+      box-shadow: inset 0 -1px 1px #fff, inset 0 .5em .5em #c4c4c4, inset 0 0 0 .375em #efefef,  inset 0 1px .125em .375em black,  inset 0 0 0 1px #eee;
+      background: linear-gradient(#f5f5f5, #eeeeee 35%, #bfbfbf);
+    }
+}
+
+/*
+Copyright (c) 2019 by Brandon McConnell (https://codepen.io/brandonmcconnell/pen/oJBVQW)
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/* chrome */
+
+input[type=range].brandon:disabled {
+  filter: grayscale(100%);
+}
+html input[type="range"].brandon {
+    outline: none;
+    border: 0;
+    border-radius: 1em;
+    margin: 0;
+    transition: box-shadow 0.2s ease-in-out;
+}
+html input[type="range"].brandon {
+    -webkit-appearance: none;
+    overflow: hidden;
+    height: 2em;
+    background-color: #ddd;
+}
+html input[type="range"].brandon::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 2em;
+    color: #444;
+    transition: box-shadow 0.2s ease-in-out;
+}
+html input[type="range"].brandon::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: -150em 0 0 149em #1597ff, inset 0 0 0 2em #1597ff;
+    border-radius: 50%;
+    transition: box-shadow 0.2s ease-in-out;
+    _position: relative;
+}
+html input[type="range"].brandon:active::-webkit-slider-thumb {
+    background: #fff;
+    box-shadow: -150em 0 0 149em #1597ff, inset 0 0 0 0.2em #1597ff;
+}
+
+/* firefox */
+
+input[type=range].brandon::-moz-focus-outer {
+    border: 0;
+}
+html input[type="range"].brandon::-moz-range-thumb {
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    width: 2em;
+    height: 2em;
+    border-radius: 1em;
+    background-color: #1597ff;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: -150em 0 0 149em #1597ff, inset 0 0 0 0.2em #1597ff;
+}
+html input[type="range"].brandon:active::-moz-range-thumb {
+    transition: box-shadow 0.2s ease-in-out;
+    background: #fff;
+    box-shadow: -150em 0 0 149em #1597ff, inset 0 0 0 0.2em #1597ff;
+}
+html input[type="range"].brandon::-moz-range-progress {
+    height: 2em;
+    background-color: #ddd;
+}
+html input[type="range"].brandon::-moz-range-track {
+    background-color: #ddd;
+}
+
+/* ie 11, ms edge */
+
+@media screen\0, @supports (-ms-ime-align:auto) {
+
+    input[type=range].brandon {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-height: 1em;
+    }
+    input[type=range].brandon::-ms-thumb {
+        cursor: pointer;
+        box-sizing: border-box;
+        border: 0;
+        margin: 0;
+        padding: 0;
+        width: 2em;
+        height: 2em;
+        border-radius: 1em;
+        background-color: #1597ff;
+        transition: box-shadow 0.2s ease-in-out;
+        box-shadow: -150em 0 0 149em #1597ff, inset 0 0 0 0.2em #1597ff;
+    }
+    input[type=range].brandon:hover::-ms-thumb {
+    }
+    input[type=range].brandon:active::-ms-thumb {
+        transition: box-shadow 0.2s ease-in-out;
+        background: #fff;
+        box-shadow: -150em 0 0 149em #1597ff, inset 0 0 0 0.2em #1597ff;
+    }
+    input[type=range].brandon::-ms-track {
+        border: 0;
+        color: #ddd;
+        background-color: #ddd;
+    }
+    html input[type=range].brandon::-ms-fill-lower {
+        border: 0;
+        background-color: #1597ff;
+    }
+    html input[type=range].brandon::-ms-fill-upper {
+        border: 0;
+        background-color: #ddd;
+    }
+
+}
+/*
+Style for range input
+Author Chris Coyier
+https://codepen.io/chriscoyier/pen/FtnAa
+
+#0077ff - skyblue track
+#ff7700 - thumb
+#ff7701 - border of thumb
+#ff9955 - hover thumb color
+#ff55aa - active thumb color
+*/
+
+input[type=range].chris:disabled {
+  filter: grayscale(100%);
+}
+input[type=range].chris {
+  box-sizing: border-box;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range].chris:focus {
+  outline: none;
+}
+
+/* chrome */
+
+input[type=range].chris::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 2em;
+  height: 1em;
+  margin-top: -0.5em;
+  background-color: #ff7700;
+  border-radius: 0.5em;
+  border: 2px solid #ff7701;
+  cursor: pointer;
+}
+input[type=range].chris:hover::-webkit-slider-thumb {
+  background-color: #ff9955;
+  border-color: #ff9955;
+}
+input[type=range].chris:active::-webkit-slider-thumb {
+  background-color: #ff55aa;
+  border-color: #ff55aa;
+}
+input[type=range].chris::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 1px solid #0077ff;
+  border-bottom: 1px solid #0077ff;
+  background-color: transparent;
+}
+
+/* firefox */
+
+input[type=range].chris::-moz-focus-outer {
+    border: 0;
+}
+input[type=range].chris::-moz-range-thumb {
+  width: 2em;
+  height: 1em;
+  margin-top: 0;
+  background-color: #ff7700;
+  border-radius: 0.5em;
+  border: 2px solid #ff7701;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+input[type=range].chris:hover::-moz-range-thumb {
+  border-color: #ff9955;
+  background-color: #ff9955;
+}
+input[type=range].chris:active::-moz-range-thumb {
+  border-color: #ff55aa;
+  background-color: #ff55aa;
+}
+input[type=range].chris::-moz-range-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: #0077ff;
+  border-color: transparent;
+  color: #0077ff;
+}
+
+/* msie 11 */
+
+@media screen\0 {
+    input[type=range].chris {
+      margin: 0;
+      padding: 0;
+      min-height: 1em;
+    }
+    input[type=range].chris::-ms-thumb {
+      width: 1em;
+      height: 0.5em;
+      margin-top: 0;
+      background-color: #ff7700;
+      border-radius: 0.5em;
+      border: 2px solid #ff7701;
+      cursor: pointer;
+    }
+    input[type=range].chris:hover::-ms-thumb {
+      border-color: #ff9955;
+      background-color: #ff9955;
+    }
+    input[type=range].chris:active::-ms-thumb {
+      border-color: #ff55aa;
+      background-color: #ff55aa;
+    }
+    input[type=range].chris::-ms-track {
+      width: 100%;
+      height: 1px;
+      cursor: pointer;
+      background-color: #0077ff;
+      border-color: transparent;
+      color: #0077ff;
+    }
+    input[type=range].chris::-ms-fill-lower {
+      background-color: #0077ff;
+    }
+}
+
+/* ms edge */
+
+@supports (-ms-ime-align:auto) {
+    input[type=range].chris {
+      margin: 0;
+      padding: 0;
+      min-height: 1em;
+    }
+    input[type=range].chris::-ms-thumb {
+      width: 1em;
+      height: 0.5em;
+      margin-top: 0;
+      background-color: #ff7700;
+      border-radius: 0.5em;
+      border: 2px solid #ff7701;
+      cursor: pointer;
+    }
+    input[type=range].chris:hover::-ms-thumb {
+      border-color: #ff9955;
+      background-color: #ff9955;
+    }
+    input[type=range].chris:active::-ms-thumb {
+      border-color: #ff55aa;
+      background-color: #ff55aa;
+    }
+    input[type=range].chris::-ms-track {
+      width: 100%;
+      height: 1px;
+      cursor: pointer;
+      background-color: #0077ff;
+      border-color: transparent;
+      color: #0077ff;
+    }
+    input[type=range].chris::-ms-fill-lower {
+      background-color: #0077ff;
+    }
+}
+
+/*
+Style for range input by Jorge Epuñan
+https://codepen.io/juanbrujo/pen/uIqaw
+
+#bdc3c7 - gray track
+#e74c3c - red thumb
+*/
+
+input[type=range].jorge:disabled {
+  filter: grayscale(100%);
+}
+input[type=range].jorge {
+  box-sizing: border-box;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range].jorge:focus {
+  outline: none;
+}
+
+/* chrome */
+
+input[type=range].jorge::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 2em;
+  height: 2em;
+  margin-top: -1em;
+  background-color: #e74c3c;
+  border-radius: 2em;
+  border: 2px solid #e74c3c;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 0 2px white;
+}
+input[type=range].jorge:hover::-webkit-slider-thumb {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+input[type=range].jorge:active::-webkit-slider-thumb {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+  width: 3em;
+  height: 3em;
+  margin-top: -1.5em;
+  border-radius: 1.5em;
+}
+input[type=range].jorge::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 2px solid #bdc3c7;
+  border-bottom: 2px solid #bdc3c7;
+  background-color: transparent;
+}
+
+/* firefox */
+
+input[type=range].jorge::-moz-focus-outer {
+    border: 0;
+}
+input[type=range].jorge::-moz-range-thumb {
+  width: 2em;
+  height: 2em;
+  margin-top: -1em;
+  background-color: #e74c3c;
+  border-radius: 2em;
+  border: 2px solid #e74c3c;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 0 0 2px white;
+}
+input[type=range].jorge:hover::-moz-range-thumb {
+  border-color: #e74c3c;
+  background-color: #e74c3c;
+}
+input[type=range].jorge:active::-moz-range-thumb {
+  border-color: #e74c3c;
+  background-color: #e74c3c;
+  box-shadow: 0 0 0 2px #e74c3c, inset 0 0 1px 2px #e74c3c;
+}
+input[type=range].jorge::-moz-range-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 2px solid #bdc3c7;
+  border-bottom: 2px solid #bdc3c7;
+  background-color: #bdc3c7;
+  border-color: transparent;
+  color: #0077ff;
+}
+
+/* msie 11 */
+
+@media screen\0 {
+    input[type=range].jorge {
+      margin: 0;
+      padding: 0;
+      min-height: 2.5em;
+    }
+    input[type=range].jorge::-ms-thumb {
+      width: 1.5em;
+      height: 1.5em;
+      margin-top: 0;
+      background-color: #e74c3c;
+      border-radius: 1.5em;
+      border: 2px solid #e74c3c;
+      cursor: pointer;
+    }
+    input[type=range].jorge:hover::-ms-thumb {
+      border-color: #e74c3c;
+      background-color: #e74c3c;
+    }
+    input[type=range].jorge:active::-ms-thumb {
+      width: 1.5em;
+      height: 1.5em;
+      margin-top: 0em;
+      border-color: #e74c3c;
+      background-color: #e74c3c;
+      box-shadow: 0 0 0 2px #e74c3c;
+    }
+    input[type=range].jorge::-ms-track {
+      width: 100%;
+      height: 1px;
+      cursor: pointer;
+      background-color: #bdc3c7;
+      border-color: transparent;
+      color: #bdc3c7;
+    }
+    input[type=range].jorge::-ms-fill-lower {
+      background-color: #0077ff;
+      outline: 1px solid #0077ff;
+    }
+}
+
+/* ms edge */
+
+@supports (-ms-ime-align:auto) {
+    input[type=range].jorge {
+      margin: 0;
+      padding: 0;
+      min-height: 2.5em;
+    }
+    input[type=range].jorge::-ms-thumb {
+      width: 1.5em;
+      height: 1.5em;
+      margin-top: 0em;
+      background-color: #e74c3c;
+      border-radius: 1.5em;
+      border: 2px solid #e74c3c;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      box-shadow: 0 0 0 2px white;
+    }
+    input[type=range].jorge:hover::-ms-thumb {
+      border-color: #e74c3c;
+      background-color: #e74c3c;
+    }
+    input[type=range].jorge:active::-ms-thumb {
+      width: 1.5em;
+      height: 1.5em;
+      margin-top: 0em;
+      border-color: #e74c3c;
+      background-color: #e74c3c;
+      box-shadow: 0 0 0 2px #e74c3c;
+    }
+    input[type=range].jorge::-ms-track {
+      width: 100%;
+      height: 4px;
+      cursor: pointer;
+      background-color: #bdc3c7;
+      border-color: transparent;
+      color: transparent;
+    }
+    input[type=range].jorge::-ms-fill-lower {
+      background-color: #0077ff;
+      outline: 1px solid #0077ff;
+    }
+}
+
+/*
+Style for range input
+Author: Marine Piette
+https://codepen.io/mayuMPH/pen/ZjxGEY
+*/
+
+input[type=range].marine:disabled {
+  filter: grayscale(100%);
+}
+input[type=range].marine {
+  box-sizing: border-box;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range].marine:focus {
+  outline: none;
+}
+
+/* chrome */
+
+input[type=range].marine::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1.4em;
+  height: 2em;
+  margin-top: -1em;
+  background-color: white;
+  border-radius: 0.7em;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0px 6px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+input[type=range].marine:hover::-webkit-slider-thumb {
+  background-color: white;
+  border-color: white;
+}
+input[type=range].marine:active::-webkit-slider-thumb {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 6px 6px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  border-color: white;
+}
+input[type=range].marine::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 1px solid #87ceeb;
+  border-bottom: 1px solid #87ceeb;
+  background-color: transparent;
+}
+
+/* firefox */
+
+input[type=range].marine::-moz-focus-outer {
+    border: 0;
+}
+input[type=range].marine::-moz-range-thumb {
+  width: 1.4em;
+  height: 2em;
+  margin-top: -1em;
+  background-color: white;
+  border-radius: 0.7em;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0px 6px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+input[type=range].marine:hover::-moz-range-thumb {
+  background-color: white;
+  border-color: white;
+}
+input[type=range].marine:active::-moz-range-thumb {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 6px 6px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  border-color: white;
+}
+input[type=range].marine::-moz-range-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 1px solid skyblue;
+  border-bottom: 1px solid skyblue;
+  background-color: skyblue;
+  border-color: transparent;
+  color: #777777;
+}
+
+/* msie 11, edge */
+
+@media screen\0 {
+    input[type=range].marine {
+      margin: 0;
+      padding: 0;
+      height: 3em;
+      min-height: 3em;
+    }
+    input[type=range].marine::-ms-thumb {
+      width: 1.4em;
+      height: 1.7em;
+      margin-top: 0em;
+      background-color: white;
+      border-radius: 0.7em;
+      border: none;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0px 6px 8px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      box-sizing: border-box;
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+    input[type=range].marine:hover::-ms-thumb {
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].marine:active::-ms-thumb {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 6px 6px rgba(0, 0, 0, 0.25);
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].marine::-ms-track {
+      box-sizing: border-box;
+      width: 100%;
+      height: 1px;
+      cursor: pointer;
+      background-color: skyblue;
+      border-color: transparent;
+      color: skyblue;
+    }
+    input[type=range].marine::-ms-fill-lower {
+      background-color: skyblue;
+    }
+}
+
+/* ms edge */
+
+@supports (-ms-ime-align:auto) {
+    input[type=range].marine {
+        min-height: 3em;
+    }
+    input[type=range].marine::-ms-thumb {
+      width: 1.4em;
+      height: 2em;
+      margin-top: 0em;
+      background-color: white;
+      border-radius: 0.7em;
+      border: none;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0px 5px 6px rgba(0, 0, 0, 0.25);
+      cursor: pointer;
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+    input[type=range].marine:hover::-ms-thumb {
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].marine:active::-ms-thumb {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35), 0px 4px 5px rgba(0, 0, 0, 0.25);
+      background-color: white;
+      border-color: white;
+    }
+    input[type=range].marine::-ms-track {
+      box-sizing: border-box;
+      width: 100%;
+      cursor: pointer;
+      height: 2px;
+      margin-top: 0.7em;
+      margin-bottom: 0.7em;
+      border: 1px solid #87ceeb;
+      background-color: transparent;
+    }
+}
+
+/*
+Style for range input
+Author: Noah Blon
+https://codepen.io/noahblon/pen/OyajvN
+
+#ffffff white thumb
+#999999 gray thumb border
+#dddddd gray track
+#0077ff blue track
+*/
+
+input[type=range].noah:disabled {
+  filter: grayscale(100%);
+}
+input[type="range"].noah { 
+    margin: auto;
+    padding: 0;
+    -webkit-appearance: none;
+    _position: relative;
+    overflow: hidden;
+    height: 2em;
+    cursor: pointer;
+    border-radius: 0; /* iOS */
+    outline: none;
+}
+
+input[type="range"].noah::-webkit-slider-runnable-track {
+    background: #dddddd;
+}
+
+/*
+ * 1. Set to 0 width and remove border for a slider without a thumb
+ */
+input[type=range].noah::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ffffff;
+    height: 2em;
+    width: 1em;
+    border: 3px solid #999999;
+    border-radius: 1px;
+    box-shadow: -100vw 0 0 100vw #0077ff;
+    box-sizing: border-box;
+}
+
+input[type="range"].noah::-moz-range-track {
+    height: 2em;
+    background: #dddddd;
+}
+
+input[type="range"].noah::-moz-range-thumb {
+    background: #ffffff;
+    height: 2em;
+    width: 1em;
+    border: 3px solid #999999;
+    border-radius: 0 !important;
+    box-shadow: -100vw 0 0 100vw #0077ff;
+    box-sizing: border-box;
+}
+
+input[type="range"].noah::-ms-fill-lower { 
+    background: #0077ff;
+}
+
+input[type="range"].noah::-ms-thumb { 
+    background: #ffffff;
+    border: 2px solid #999999;
+    height: 2em;
+    width: 1em;
+    box-sizing: border-box;
+}
+
+input[type="range"].noah::-ms-ticks-after { 
+    display: none; 
+}
+
+input[type="range"].noah::-ms-ticks-before { 
+    display: none; 
+}
+
+input[type="range"].noah::-ms-track { 
+    background: #dddddd;
+    color: transparent;
+    height: 2em;
+    border: none;
+}
+
+input[type="range"].noah::-ms-tooltip { 
+    _display: none;
+}
+/*
+Style for range input
+Author: Renaud Tertrais
+from https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+
+#777777 - gray track
+#16a085 - green thumb
+#787878 - gray border of thumb
+#17a186 - hover thumb color
+#36c0a5 - active thumb color
+
+*/
+
+input[type=range].renaud:disabled {
+  filter: grayscale(100%);
+}
+input[type=range].renaud {
+  box-sizing: border-box;
+  background-color: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type=range].renaud:focus {
+  outline: none;
+}
+
+/* chrome */
+
+input[type=range].renaud::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  background-color: #16a085;
+  border-radius: 50%; /* 0.5em; */
+  border: 2px solid #787878;
+  cursor: pointer;
+}
+input[type=range].renaud:hover::-webkit-slider-thumb {
+  background-color: #17a186;
+  border-color: #17a186;
+}
+input[type=range].renaud:active::-webkit-slider-thumb {
+  background-color: #36c0a5;
+  border-color: #36c0a5;
+}
+input[type=range].renaud::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 1px solid #777777;
+  border-bottom: 1px solid #777777;
+  background-color: transparent;
+}
+
+/* firefox */
+
+input[type=range].renaud::-moz-focus-outer {
+    border: 0;
+}
+input[type=range].renaud::-moz-range-thumb {
+  width: 1em;
+  height: 1em;
+  margin-top: 0;
+  background-color: #16a085;
+  border-radius: 50%; /* 0.5em; */
+  border: 2px solid #787878;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+input[type=range].renaud:hover::-moz-range-thumb {
+  border-color: #17a186;
+  background-color: #17a186;
+}
+input[type=range].renaud:active::-moz-range-thumb {
+  border-color: #36c0a5;
+  background-color: #36c0a5;
+}
+input[type=range].renaud::-moz-range-track {
+  width: 100%;
+  cursor: pointer;
+  height: 0;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: #777777;
+  border-color: transparent;
+  color: #777777;
+}
+
+/* msie 11 */
+
+@media screen\0 {
+    input[type=range].renaud {
+      margin: 0;
+      padding: 0;
+      min-height: 1em;
+    }
+    input[type=range].renaud::-ms-thumb {
+      width: 0.5em;
+      height: 0.5em;
+      margin-top: 0;
+      background-color: #16a085;
+      border-radius: 0.5em;
+      border: 2px solid #787878;
+      cursor: pointer;
+    }
+    input[type=range].renaud:hover::-ms-thumb {
+      border-color: #17a186;
+      background-color: #17a186;
+    }
+    input[type=range].renaud:active::-ms-thumb {
+      border-color: #36c0a5;
+      background-color: #36c0a5;
+    }
+    input[type=range].renaud::-ms-track {
+      width: 100%;
+      height: 1px;
+      cursor: pointer;
+      background-color: #777777;
+      border-color: transparent;
+      color: #777777;
+    }
+    input[type=range].renaud::-ms-fill-lower {
+      background-color: #777777;
+    }
+}
+
+/* ms edge */
+
+@supports (-ms-ime-align:auto) {
+    input[type=range].renaud {
+      margin: 0;
+      padding: 0;
+      min-height: 1em;
+    }
+    input[type=range].renaud::-ms-thumb {
+      width: 0.5em;
+      height: 0.5em;
+      margin-top: 0;
+      background-color: #16a085;
+      border-radius: 0.5em;
+      border: 2px solid #787878;
+      cursor: pointer;
+    }
+    input[type=range].renaud:hover::-ms-thumb {
+      border-color: #17a186;
+      background-color: #17a186;
+    }
+    input[type=range].renaud:active::-ms-thumb {
+      border-color: #36c0a5;
+      background-color: #36c0a5;
+    }
+    input[type=range].renaud::-ms-track {
+      width: 100%;
+      height: 1px;
+      cursor: pointer;
+      background-color: #777777;
+      border-color: transparent;
+      color: #777777;
+    }
+    input[type=range].renaud::-ms-fill-lower {
+      background-color: #777777;
+    }
+}
+
+
+/* chrome */
+
+input[type=range].vincent:disabled {
+  filter: grayscale(100%);
+}
+html input[type="range"].vincent {
+    outline: none;
+    border: 0;
+    border-radius: 0;
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 0 0.5ex 0.6ex rgba(0,0,0,0.3);
+}
+html input[type="range"].vincent {
+    -webkit-appearance: none;
+    overflow: hidden;
+    height: 2em;
+    background-color: white;
+}
+
+html input[type="range"].vincent::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 2em;
+    color: white;
+    transition: box-shadow 0.2s ease-in-out;
+}
+html input[type="range"].vincent::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 2em;
+    height: 1em;
+    margin-top: 0.5em;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #9FE472;
+    border-radius: 0;
+    transition: box-shadow 0.2s ease-in-out;
+}
+html input[type="range"].vincent:active::-webkit-slider-thumb {
+    background: #fff;
+    box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #7db359;
+}
+
+/* firefox */
+
+input[type=range].vincent::-moz-focus-outer {
+    border: 0;
+}
+html input[type="range"].vincent::-moz-range-thumb {
+    width: 2em;
+    height: 1em;
+    margin-top: 0.5em;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #9FE472;
+    border: 0;
+    border-radius: 0;
+    transition: box-shadow 0.2s ease-in-out;
+}
+html input[type="range"].vincent:active::-moz-range-thumb {
+    transition: box-shadow 0.2s ease-in-out;
+    box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #7db359;
+}
+html input[type="range"].vincent::-moz-range-progress {
+    height: 2em;
+    background-color: transparent;
+}
+html input[type="range"].vincent::-moz-range-track {
+    background-color: white;
+}
+
+/* ie 11, ms edge */
+
+@media screen\0 {
+    input[type=range].vincent {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-height: 2em;
+    }
+
+    input[type=range].vincent::-ms-thumb {
+        cursor: pointer;
+        box-sizing: border-box;
+        border: 0;
+        margin: 0.5em;
+        padding: 0;
+        width: 2em;
+        height: 1em;
+        border-radius: 0;
+        background-color: white;
+        transition: box-shadow 0.2s ease-in-out;
+        box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #9FE472;
+    }
+    input[type=range].vincent:hover::-ms-thumb {
+    }
+    input[type=range].vincent:active::-ms-thumb {
+        transition: box-shadow 0.2s ease-in-out;
+        background: #fff;
+        box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #7db359;
+    }
+    input[type=range].vincent::-ms-track {
+        border: 0;
+        color: transparent;
+        background-color: transparent;
+    }
+    html input[type=range].vincent::-ms-fill-lower {
+        border: 0;
+        background-color: transparent;
+    }
+    html input[type=range].vincent::-ms-fill-upper {
+        border: 0;
+        background-color: transparent;
+    }
+}
+
+@supports (-ms-ime-align:auto) {
+    input[type=range].vincent {
+        border: 0;
+        margin: 0;
+        padding: 0;
+        min-height: 2em;
+    }
+
+    input[type=range].vincent::-ms-thumb {
+        cursor: pointer;
+        box-sizing: border-box;
+        border: 0;
+        margin: 0.5em;
+        padding: 0;
+        width: 2em;
+        height: 1em;
+        border-radius: 0;
+        background-color: white;
+        transition: box-shadow 0.2s ease-in-out;
+        box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #9FE472;
+    }
+    input[type=range].vincent:hover::-ms-thumb {
+    }
+    input[type=range].vincent:active::-ms-thumb {
+        transition: box-shadow 0.2s ease-in-out;
+        background: #fff;
+        box-shadow: 0 0.3ex 1ex rgba(0,0,0,0.5), -150em 0 0 149em #7db359;
+    }
+    input[type=range].vincent::-ms-track {
+        border: 0;
+        color: transparent;
+        background-color: transparent;
+    }
+    html input[type=range].vincent::-ms-fill-lower {
+        border: 0;
+        background-color: transparent;
+    }
+    html input[type=range].vincent::-ms-fill-upper {
+        border: 0;
+        background-color: transparent;
+    }
+}
+

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Manual for stripboard2schematic</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <style>
+    body {
+        max-width: 60ch;
+        margin: auto;
+        font-family: sans-serif;
+    }
+    body > img {
+        display: block;
+        margin: auto;
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    table, tr, th, td {
+        border: 1px solid black;
+    }
+    </style>
+
+  </head>
+  <body>
+
+    <h1>stripboard2schematic manual</h1>
+
+    <div id="summary"></div>
+
+    <h2 id="stripboard">1 Stripboard</h2>
+
+    <p>"Stripboard" a first of the two tools you need for generating schematic
+    from a stripboard layout. Stripboard tool allows you to create netlist by
+    placing components atop of a image with stripboard layout.</p>
+
+    <p>Press middle mouse button and drag to pan, use wheel for zoom.</p>
+
+    <h3 id="stripboard_bg_image">1.1 Background image</h3>
+
+    <p>Click on "BG Image" action button and choose image with stripboard layout.
+    Supported are PNG, JPG, GIF and WEBP images. The image should appear on the screen.</p>
+
+    <h3 id="stripboard_grid_size">1.2 Grid size</h3>
+
+    <p>Click on the "Grid size" action button. In modal dialog specify width and height
+    of the stripboard layout measured in holes. For example following layout is
+    8 holes horizontally and 7 holes vertically:</p>
+
+    <img src="image/common_emitter.png"/>
+
+    <h4 id="stripboard_grid_plus_one">1.2.1 Adding extra strip</h4>
+
+    <p>You can change grid size at any time, but changing grid size erases copper cuts,
+    if you want to add just one strip to the bottom, press "+1 strip" action button
+    and new strip will be added to the bottom.</p>
+
+    <h3 id="stripboard_grid_placement">1.3 Grid placement</h3>
+
+    <p>Once you have background image on screen and you have defined the grid size,
+    you can place the grid. Choose "Grid placement" tool, then use left mouse button
+    to click on the top-left hole, while holding mouse button pressed, drag
+    mouse to the bottom-right hole and release the mouse. You will see green dots
+    on the screen they should match the background image. If you make a mistake simply
+    repeat this process until the holes are aligned.</p>
+
+    <h3 id="stripboard_cut">1.4 Copper cuts</h3>
+
+    <p>After placing the grid you should see copper stripes atop of the background image.
+    The copper is 50% transparent, you can increase or decrease the transparency of copper
+    by moving the slider next to the "Copper" checkbox in the "Show" section.</p>
+
+    <p>In "Copper" section, choose "Cut" tool and click where the copper should be removed.
+    Click again to add copper back in. Sometimes it is hard to see where the cuts are so
+    you can uncheck the "Copper" chechbox or press "c" to temporarily show/hide copper.</p>
+
+    <p>Make sure you have all cuts, good stripboard layouts specify number of cuts,
+    some of the cuts are hiding under the components.</p>
+
+
+    <h3 id="stripboard_link">1.5 Links</h3>
+
+    <p>Some layouts connects two or more strips with wire links. Choose "Link" tool
+    in the "Copper" section. Press left mouse button where link starts, hold button
+    pressed and drag mouse where link ends, release the mouse button.</p>
+
+    <p>Links must start and end on the board. If you need wire going out of the
+    board, use "Connector" instead (see sections below).</p>
+
+    <p>If you make a mistake, choose "Select" tool (shortcut "s") and click on the
+    link to select it (green outline). Press "Delete" keyboard key to delete selected link.
+    Then you can choose "Link" tool and add new link.</p>
+
+
+    <h3 id="stripboard_components">1.6 Adding components</h3>
+
+    <h4 id="stripboard_components_2_pin">1.6.1 Adding 2-pin components (Resistor, Diode, ...)</h4>
+
+    <p>Resistor, LDR, Capacitor, Inductor, Diode and LED are all added same the way.
+    Choose the component, e.g. "Resistor" in "Component" section, then press the left
+    mouse button over hole where component starts, hold mouse button and drag mouse where the
+    component ends, then release the mouse.</p>
+
+    <p>After you add component, it's properties dialog will open, there you can
+    define name and value of component. Name must be unique (pre-filled name is unique).
+    Value is any string.
+    Confirm adding component by pressing "Add" button in properties dialog.</p>
+
+    <p>Freshly added component is selected (green outline).
+    You can flip polarity of selected component by pressing "f" key.
+    You can delete selected component by pressing "Delete" key.</p>
+
+    <h4 id="stripboard_3_pin">1.6.2 Adding 3-pin components (Transistors, Regulators, Trimmers)</h4>
+
+    <h5 id="stripboard_transistor">1.6.2.1 Adding transistors</h5>
+
+    <p>Choose "Transistor" tool from the "Components" section. Then press the left
+    mouse button over hole where transistor starts, hold mouse button and drag mouse where the
+    transistor ends, then release the mouse.</p>
+
+    <p>Transistors must span exactly 3 holes. There are 4 ways to add transistor.
+    Click and drag 3 holes left, 3 holes right, 3 holes up or 3 holes down.
+    If the span is anything other than 3 you will see label telling you that span must be 3 holes.</p>
+
+    <p>Starting pin is "Emiter", but once you add the transistor you can change the
+    pinout to anything else. When properties dialog appears, you can change transistor name
+    and "Model". In model dropdown you can choose one of the presets, e.g. 2N3904 or J201.
+    When you change the model, the Kind, Package and Pinout will be filled in.
+    When you press "Add" button this transistor will be added.</p>
+
+    <p>You can open properties dialog by double-clicking on transistor. Then you can change the model.</p>
+
+    <h5 id="stripboard_transistor_custom">1.6.2.2 Custom transistors</h5>
+
+    <p>If your transistor is not in the Model dropdown, you can add custom transistor.
+    Doubleclick on transistor, change Model to "Custom".
+    This will unlock Kind/Package/Pinout dropdowns.
+    You can now change any parameter.</p>
+
+    <p>For example you want 2SK30A.
+    Choose Model=Custom, then change Kind to "N_JFET",
+    change Package to "TO-92", and change Pinout to "SGD".
+    </p>
+
+    <p>Pinout is from left to right when you look on the transistor's from the front where the inscriptions are.</p>
+
+    <p>Since you changed Model from 2N2222 to Custom, the information about model
+    would be lost, you append real model to transistor's name, in dialog you can
+    change name from "Q1" to "Q1 2SK30A".</p>
+
+    <p>Note that there are no checks in Custom model, you can choose anything (even NPN with DGS pinout).
+    So make sure you are using correct parameters in Custom model.</p>
+
+    <h5 id="stripboard_transistor_fet">1.6.2.3 FET/MOSFET transistors</h5>
+
+    <p>Same as bipolar transistors but in the schematic they will have different symbol
+    and their pinout is combination of D, G and S (Drain/Gate/Source) instead of E/B/C (Emitter/Base/Collector).</p>
+
+    <h5 id="stripboard_transistor_darlington">1.6.2.4 Darlington transistors</h5>
+    <p>Same as bipolar transistor but the schematic symbol will be different.
+    Pinout is same as NPN/PNP - E/B/C.</p>
+
+    <h5 id="stripboard_transistor_regulator">1.6.2.5 Voltage regulators</h5>
+    <p>Because voltage regulators are in the same package as transistors (TO-92. TO-220),
+    the are in the transistor tool. P_REGULATOR is regulator for positive voltage, e.g.
+    78L05, N_REGULATOR is for negative voltage e.g. 79L05.
+    </p>
+
+    <p>In voltage regulators pinout is I for input, G for ground or common pin, O for output.</p>
+
+    <h4 id="stripboard_trimmer">1.6.3 Trimmers</h4>
+
+    <p>Trimmer is potentiometer placed directly on stripboard. If you want external
+    potentiometer connected with wires see sections below on "Connector pot".</p>
+
+    <p>Trimmer is placed on board in a similar way as transistor.
+    Choose "Trimmer" tool in "Components" section. Press the left mouse button
+    over hole where trimmer starts, hold mouse button and drag mouse where the
+    trimmer ends, then release the mouse. Wiper will be placed on one side.
+    If you want wiper on the other side start from the other hole, or press "f"
+    to flip the trimmer (after you add the trimmer).</p>
+
+    <p>Just like with transistors span must be exactly 3 holes.</p>
+
+    <p>When you add trimmer a properties dialog will be displayed. There you
+    can define value (any string) and unique name.</p>
+
+    <h4 id="stripboard_dip">1.6.4 DIP Chips</h4>
+
+    <p>Use "DIP" tool to add any Dual Inline Package chip. Press the left mouse button
+    over hole where first pin is (top left corner), hold mouse button and drag mouse where the
+    bottom right pin is, then release the mouse. Dip packages are 4 holes wide.</p>
+
+    <p>Once you add DIP package, properties dialog will be shown. If you chose size
+    correctly, e.g. 4x4 for TL071, the Value dropdown will have all models with only this
+    size. You can select TL071. When you choose Value the pinout will be filled in.</p>
+
+    <p>The pinout is comma-separated list of pin names, starting with pin 1 and ending with last pin, e.g. 8th pin.
+    For TL071 the pinout is OFS1,IN-,IN+,V-,OFS2,OUT,V+,NC.</p>
+
+    <p>In Schematic dropdown you can choose how you want this chip to be represented
+    in schematic tool. For TL071 since it is single opamp, only 4 options will be enabled.
+    The meaning of these values are:</p>
+
+    <table>
+        <tr>
+            <th>Schematic</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td>DIP</td>
+            <td>The chip will be displayed as is, rectangle with pins on both sides.</td>
+        </tr>
+        <tr>
+            <td>DIP8 with single opamp</td>
+            <td>Rectangle with 2x4 pins, inside rectangle will opamp schematic connected to pins 2, 3, 6</td>
+        </tr>
+        <tr>
+            <td>DIP8 with dual opamp</td>
+            <td>Rectangle with 2x4 pins, inside rectangle will be 2 opamp schematic connected to pins 1, 2, 3, 5, 6, 7</td>
+        </tr>
+        <tr>
+            <td>DIP with quad opamp</td>
+            <td>Rectangle with 2x7 pins, inside rectangle will be 4 opamp triangles connected to pins</td>
+        </tr>
+        <tr>
+            <td>Opamp 1 triangle</td>
+            <td>There will be no dip package but only 1 opamp triangle with 3 pins (IN+, IN-, OUT). Rails will be 2 separate pins.</td>
+        </tr>
+        <tr>
+            <td>Opamp 1 triangle + offset circuit</td>
+            <td>There will be no dip package but only 1 opamp triangle with 3 pins (IN+, IN-, OUT). Rails will be 2 separate pins and 2 extra pins for offset circuit.</td>
+        </tr>
+        <tr>
+            <td>Opamp 2 triangles</td>
+            <td>There will be no dip package but only 2 opamp triangles with 3 pins (IN+, IN-, OUT). Rails will be 2 separate pins.</td>
+        </tr>
+        <tr>
+            <td>Opamp 4 triangles</td>
+            <td>There will be no dip package but only 4 opamp triangles with 3 pins (IN+, IN-, OUT). Rails will be 2 separate pins.</td>
+        </tr>
+    </table>
+
+    <p>In the stripboard tool, when you choose "Select" tool, DIP packages and
+    not selected when you click inside them, but when you click on/near their pins.
+    This allows you to choose components that may be under the dip packages (like links).</p>
+
+    <h5 id="stripboard_dip_custom">1.6.4.1 Custom chips</h5>
+
+    <p>There are only most common DIP chips specified in this tool, if you need
+    chip that is not on the list, you can add custom DIP chip.</p>
+
+    <p>For example you want to add LM13600 chip. Add 4x8 dip chip, then in the dialog
+    choose model "Custom". In the pinout type AB1,DB1,IN1+,IN1-,OUT1,V-,BI1,BO1,BO2,BI2,V+,OUT2,IN2-,IN2+,DB2,AB2
+    or even P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16. Pin names only matter
+    if you want to use one of the known schematics, like dual opamp, then you would have
+    to use same pin names as on of the existing models. In the schematic choose DIP.</p>
+
+    <p>If you are adding DIP chip with known schematic, e.g. dual opamp, you can choose
+    schematic "Opamp 2 triangles" but then your pin names must be the same, e.g.
+    OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+ however the order of your pinout can be different.
+    You can use NC1,NC2,... for not-connected pins.</p>
+
+
+
+    <h3 id="stripboard_connectors">1.7 Adding connectors</h3>
+
+    <p>Connectors are wires comming out of the board. Usually from the sides
+    but they can also come from the middle of the board.</p>
+
+    <p>All connectors are added like 2-pin components, they have start and end.
+    Start must be on board, end must be outside of the board.</p>
+
+    <p>Choose the connector, e.g. "Input" in "Connector" section, then press
+    the left mouse button over hole where connector starts, hold mouse button
+    and drag mouse where out of the board where the connector should ends,
+    then release the mouse. Some connectors will show properties dialog where
+    you must specify certain properties.</p>
+
+    <p>To show properties dialog choose "Select" tool and double-click on connector.</p>
+
+    <h4 id="stripboard_connectors_common">1.7.1 Common connectors (Input, Output, Ground)</h4>
+
+    <p>First three connectors are Input, Output and Ground. Almost all boards have them.
+    Once you add them there will not be properties dialog, there is nothing to change.
+    You can only delete them.
+    </p>
+
+    <h4 id="stripboard_connector_battery">1.7.2 Battery connector</h4>
+
+    <p>After you add battery connector, in dialog you can set voltage. Use "9"
+    for positive 9V battery. If you use negative values like -9 the battery symbol
+    will be reversed in schematic.</p>
+
+    <h4 id="stripboard_connector_pot">1.7.3 Pot connector</h4>
+
+    <p>Pot connector is for potentiometers that are outside of the stripboard.
+    If you want trimmer on the board use trimmer component instead.</p>
+
+    <p>When you add pot connector, it's properties dialog will appear.
+    For each pot you nead 2-3 pot connectors with the same name and same resistance.
+    Then in each pot connector you check the checkbox which correspond to that pin.</p>
+
+    <p>For example you have 100k Volume pot. Add 3 pot connectors at correct strip.
+    In all 3 connectors' dialog choose Resistance 100k and name "Volume".
+    This needs to be same for all 3 pot connectors.
+    Then in each connector check the correct pin checkbox. 1 is start,
+    2 is wiper, 3 is end of the pot. Some pots share wiper with either
+    start or end, you can check more than one checkbox, for example checkbox 1 and 2
+    on one connector, checkbox 3 on the other connector.</p>
+
+    <h4 id="stripboard_connector_spst">1.7.4 SPST switch connector</h4>
+
+    <p>This connector is for Single Pole Single Throw connector. It has 2 pins
+    so you need 2 connectors with the same name. After each connector is added,
+    in dialog choose which pin it is.</p>
+
+    <h4 id="stripboard_connector_spdt">1.7.5 SPDT switch connector</h4>
+
+    <p>This connector is for Single Pole Dual Throw connector. It has 2 or 3 pins
+    so you need 2 or 3 connectors with the same name. After each connector is added,
+    in dialog choose which pin it is. If you only use 2 connectors it would be like SPST.</p>
+
+    <h4 id="stripboard_connector_dpdt">1.7.6 DPDT switch connector</h4>
+
+    <p>Basically 2 linked SPDT switches. In the dialog you can choose from 2
+    different schematics, whichever you like. You can leave some pins unconnected.</p>
+
+    <p>If you want to have the switches far apart in schematic, choose two SPDT
+    switches (with different names) so that you can move them independently.</p>
+
+    <h4 id="stripboard_connector_other">1.7.7 Other connector</h4>
+
+    <p>For any other wire going out of stripboard use other connector.
+    In schematic it will appear as single pin with small triangle and name.</p>
+
+    <h3 id="stripboard_export">1.8 Export</h4>
+
+    <p>Once you are done, you can export stripboard by pressing "Export" action button.
+    It will download file with .stripboard extension. You will be asked for a filename,
+    choose something short, e.g. "fuzz face".</p>
+
+    <h3 id="stripboard_import">1.9 Import</h4>
+
+    <p>You can import previously exported files by pressing "Import" action button
+    and choosing file with ".stripboard" extension.</p>
+
+    <h3 id="stripboard_netlist">1.10 Netlist</h4>
+
+    <p>Netlist is list of components and networks they are connected to.
+    Normally you don't need this, but it can be used to generate netlist
+    and then opening schematic tool and importing the netlist manually there.</p>
+
+    <h3 id="stripboard_clear">1.11 Clear</h4>
+
+    <p>If you want to create new schematic, press "Clear" action button and then
+    start from section 1.1 by adding new background image.</p>
+
+    <h3 id="stripboard_undo">1.12 Undo</h4>
+
+    <p>If you make a mistake, press "Undo" action button or press "Ctrl+z" key
+    to undo most recent change. If there are no more steps to undo you will hear
+    a beep.</p>
+
+    <h3 id="stripboard_schematic">1.13 Schematic</h4>
+
+    <p>Finally when you are done with placing components on stripboard, you
+    press the "Schematic" action button and schematic tool will be opened and
+    your stripboard will be imported there.</p>
+
+    <hr>
+
+    <h2 id="schematic">2. Schematic</h2>
+
+    <p>"Schematic" is second of the two tools, first one being "Stripboard".
+    Once you are done with components placement, you press the "Schematic" button
+    and this tool will appear.</p>
+
+    <p>You will be asked if you if you want to import netlist, e.g.
+    "Do you want to import netlist fuzz_face". Simply press OK and
+    you will see all components there. If for some reason you don't want to
+    import changes you made in Stripboard, press Cancel and you will
+    see whatever you had in Schematic before.</p>
+
+    <p>Press middle mouse button and drag to pan, use wheel for zoom.</p>
+
+    <h3 id="schematic_placement">2.1 Initial placement</h3>
+
+    <p>Initially components will be sorted by type and alphabetically.
+    From here you can click on component to select it and drag it with
+    mouse to other location. Press "r" to rotate components, press "f" to flip component
+    horizontally.</p>
+
+    <p>It's a good idea to place input on the left, battery on the right, ground
+    in the bottom-right corner, transistors and chips in the middle. Then go from
+    input and follow which components are connected to input and move them closer
+    to input. If they are connected to ground, move them closer to the bottom,
+    if they are connected to battery move them up.</p>
+
+    <p>After 10 or 20 minutes of moving, rotating and flipping, you should have
+    readable schematic.</p>
+
+    <h3 id="schematic_undo">2.2 Undo</h4>
+
+    <p>If you make a mistake, press "Undo" action button or press "Ctrl+z" key
+    to undo most recent change. If there are no more steps to undo you will hear
+    a beep.</p>
+
+    <h3 id="schematic_select">2.3 Select</h4>
+
+    <p>Press "Select" tool button or press "s" key to switch to default editing
+    mode. In this mode when you click on component it will have red outline and
+    you can move it with mouse, rotate it by pressing "r" or flip it by pressing "r".</p>
+
+    <h3 id="schematic_guide_wire">2.4 Guide wire</h4>
+
+    <p>Only use this tool when you are almost finish and all you want is to make
+    lines more ortogonal. Press mouse near network and it will add guide point
+    to the nearest network, keep mouse pressed and drag it where you want the wire
+    to go, release mouse when done.</p>
+
+    <p>Hold "shift" key while you press mouse button to erase guide points.</p>
+
+    <h3 id="schematic_sort_components">2.5 Sort components</h4>
+
+    <p>Press "Sort components" action button to move all components back to it's
+    original position. Undo if you used it accidentally.</p>
+
+    <h3 id="schematic_export_schematic">2.6 Export schematic</h4>
+
+    <p>Use "Export schematic" to download current schematic as .schematic file.
+    You can later import it back.</p>
+
+    <h3 id="schematic_import_schematic">2.7 Import schematic</h4>
+
+    <p>Use "Import schematic" to import previously exported .schematic files.</p>
+
+    <h3 id="schematic_clear">2.8 Clear</h4>
+
+    <p>Press "Clear" action button to clear all components and nets. Then you
+    can import netlist or schematic.</p>
+
+    <h3 id="schematic_clear_all_guides">2.9 Clear all guides</h4>
+
+    <p>When you have mostly done schematic, with guide wires everywhere,
+    and then you start making major changes it is easier just to erase all
+    guide wires and add them later. Click on "Clear all guides" action button
+    and all guide points will be gone.</p>
+
+    <h3 id="schematic_screenshot">2.10 Screenshot</h4>
+
+    <p>When you are happy with your schematic, press "Screenshot" action button
+    and black-and-white screenshot will be generated at default zoom. If you want
+    screenshot at current zoom, hold "shift" key while pressing screenshot button.</p>
+
+    <h3 id="schematic_stripboard">2.11 Stripboard</h4>
+
+    <p>"Stripboard" action button will get you back to stripboard tool,
+    for example if you want to check something, or change value of some component.
+    When you make change in Stripboard, press Schematic button which will
+    get you back here, you will be asked if you want to import netlist, choose
+    OK and you will see changes.
+    </p>
+
+    <p>If you make some major changes, it is possible that guide points are
+    no longer correct so erase them one by one, by holding shift or all at once.</p>
+
+    <script>
+    // summary links at the top
+    var h = document.querySelectorAll('h2,h3,h4,h5,h6'), i, div,
+        su = document.getElementById('summary');
+    for (i = 0; i < h.length; i++) {
+        h[i].id = h[i].id || ('anchor' + i);
+        div = document.createElement('div');
+        a = document.createElement('a');
+        a.href = "#" + h[i].id;
+        a.textContent = h[i].textContent;
+        div.style.marginLeft = 3 * (parseInt(h[i].nodeName.replace(/h/i, ''), 10) - 2) + 'ex';
+        div.appendChild(a);
+        su.appendChild(div);
+    }
+    </script>
+
+  </body>
+</html>
+
+
+

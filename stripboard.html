@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stripboard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link type="text/css" rel="stylesheet" href="js/canvas/canvas.min.css?version=0" />
+    <script type="text/javascript" src="js/canvas/canvas.src.js?version=0"></script>
+    <script type="text/javascript" src="js/vec2/vec2.js?version=0"></script>
+
+    <link rel="stylesheet" href="css/index.css?version=0" type="text/css" />
+    <link rel="stylesheet" href="css/sidebar.css?version=0" type="text/css" />
+    <link rel="shortcut icon" href="image/stripboard/icon.png?version=0" type="image/png" />
+
+    <script type="text/javascript" src="js/stripboard/global.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/grid.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/render_outline.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/render_default.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_resistor.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_capacitor.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_inductor.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_connector.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_connector_battery.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_connector_pot.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_connector_switch_spst.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_connector_switch_spdt.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_connector_switch_dpdt.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_link.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_transistor.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_trimmer.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_diode.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_led.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_dip.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/component_ldr.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/components.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/properties_dialog.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/add.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/netlist.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/specs_dip.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/specs_transistor.js?version=0"></script>
+    <script type="text/javascript" src="js/stripboard/index.js?version=0"></script>
+  </head>
+  <body>
+    <nav id="sidebar">
+        <div class="section">Tool</div>
+        <button id="tool_select" title="Click on component will select it (green),&#010;Double-click will open component's properties dialog,&#010;Key 'F' will flip component's polarity&#010;Mouse middle button to pan, wheel to zoom">Select</button>
+        <button id="tool_grid_placement" title="Press mouse on top-left hole of a stripboard, drag mouse to bottom right and release mouse on bottom-right hole of stripboard">Grid placement</button>
+
+        <div class="section">Action</div>
+        <div class="two_columns">
+            <button id="tool_undo" title="Undo recent changes (ctrl+z)">Undo</button>
+            <button id="tool_bg_image" title="Choose background image with stripboard layout from your disk">BG image</button>
+            <button id="tool_grid_size" title="Specify number of holes in dialog">Grid size</button>
+            <button id="tool_grid_expand" title="Add 1 extra strip at the bottom of the stripboard, existing cuts are preserved.">+1 strip</button>
+            <button id="tool_clear" title="Remove everything and start new stripboard layout">Clear</button>
+            <button id="tool_export" title="Export this stripboard into *.stripboard file">Export</button>
+            <button id="tool_import" title="Import previously exported *.stripboard file">Import</button>
+            <button id="tool_netlist" title="Generate netlist, can be imported in schematic tool">Netlist</button>
+            <button id="tool_schematic" title="Export netlist and open it in schematic editor, use this when all components are done.">Schematic</button>
+        </div>
+
+        <div class="section">Show</div>
+        <label title="Show/hide copper layer (shortcut C)"><input id="show_copper" type="checkbox"/>Copper<input id="show_copper_opacity" title="Copper opacity" type="range" style="width: 2cm; height: 0.2cm;" min="0" max="1" value="1" step="0.01"></label>
+        <label title="Show/hide background image (shortcut B)"><input id="show_background" type="checkbox"/>Background</label>
+        <label title="Show/hide net numbers, useful only for debugging (shortcut N)"><input id="show_net_numbers" type="checkbox"/>Net numbers</label>
+        <label title="Show/hide components, useful for final check of values before making schematic (shortcut E)"><input id="show_components" type="checkbox"/>Components<input id="show_components_opacity" title="Components opacity" type="range" style="width: 2cm; height: 0.2cm;" min="0" max="1" value="1" step="0.01"></label>
+        <label title="Show/hide outline of selected component, useful for making screenshots without selection visible"><input id="show_selection" type="checkbox"/>Selection</label>
+
+        <div class="section">Copper</div>
+        <div class="two_columns">
+            <button id="tool_copper_cut" title="Click on grid to add or remove cut from the copper strip">Cut</button>
+            <button id="tool_link" title="Link/Bridge/Jumper connecting 2 or more holes">Link</button>
+        </div>
+
+        <div class="section">Connector</div>
+        <div class="two_columns">
+            <button id="tool_connector_input" title="Input connector">Input</button>
+            <button id="tool_connector_output" title="Output connector">Output</button>
+            <button id="tool_connector_ground" title="Ground connector">Ground</button>
+            <button id="tool_connector_battery" title="Battery or any other DC supply, e.g. +9 or -9">Battery</button>
+            <button id="tool_connector_pot" title="Connector to an external potentiometer, add 2 or 3 pot connectors with the same name and in properties dialog check which pin they connect to.">Pot</button>
+            <button id="tool_connector_switch_spst" title="Connector to a Single Pole Double Throw, use 2 connectors with the same name and choose correct pin in properties dialog">SPST Switch</button>
+            <button id="tool_connector_switch_spdt" title="Connector to a Single Pole Single Throw, use 3 connectors with the same name and choose correct pin in properties dialog">SPDT Switch</button>
+            <button id="tool_connector_switch_dpdt" title="Connector to a Double Pole Double Throw, use 4~6 connectors with the same name and choose correct pin in properties dialog">DPDT Switch</button>
+            <button id="tool_connector" title="Any other connector (Inverted output, Left/Right channel, Exression, ...)">Other</button>
+        </div>
+
+        <div class="section">Component</div>
+        <div class="two_columns">
+            <button id="tool_resistor" title="Insert resistor (press left mouse button where it starts, drag, release where it ends)">Resistor</button>
+            <button id="tool_ldr" title="Insert light-dependent resistor (press left mouse button where it starts, drag, release where it ends)">LDR</button>
+            <button id="tool_capacitor" title="Insert ceramic, electrolytic or any other capacitor (press left mouse button where it starts, drag, release where it ends)">Capacitor</button>
+            <button id="tool_inductor" title="Insert inductor (press left mouse button where it starts, drag, release where it ends)">Inductor</button>
+            <button id="tool_diode" title="Insert diode (press left mouse button where it starts, drag, release where it ends)">Diode</button>
+            <button id="tool_led" title="Insert LED (press left mouse button where it starts, drag, release where it ends)">LED</button>
+            <button id="tool_transistor" title="Insert transitor (bipolar, unipolar, darlingtons) or voltage regulator. It must span 3 holes either vertically or horizontally. Press 'F' to flip the polarity. To insert press left mouse button where it starts, drag, release where it ends.">Transistor</button>
+            <button id="tool_dip" title="">DIP</button>
+            <button id="tool_trimmer" title="Insert trimmer pot directly on stripboard, press mouse where it starts, drag mouse, release where it ends. Span must be 3 holes. To flip where the wiper is press 'f' button. (to use external potentiometer use 'Connector pot' instead)">Trimmer</button>
+        </div>
+        <div class="bottom">
+            <a href="help.html#stripboard">Help</a>
+            <a href="https://github.com/">Source</a>
+        </div>
+    </nav>
+
+    <!-- layers -->
+    <main>
+        <canvas id="grid"></canvas>
+        <canvas id="ground"></canvas>
+        <canvas id="copper"></canvas>
+        <canvas id="component"></canvas>
+        <canvas id="selected"></canvas>
+        <canvas id="nearest"></canvas>
+        <canvas id="control"></canvas>
+    </main>
+
+    <footer>
+        <div>X:</div>
+        <div id="status_x">0</div>
+        <div>Y:</div>
+        <div id="status_y">0</div>
+        <div>Zoom:</div>
+        <div id="status_zoom">1</div>
+        <div>Element:</div>
+        <div id="status_element">none</div>
+    </footer>
+
+  </body>
+</html>
+
+
+

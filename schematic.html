@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Schematic</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <link type="text/css" rel="stylesheet" href="js/canvas/canvas.min.css?version=0" />
+    <script type="text/javascript" src="js/canvas/canvas.src.js"></script>
+    <script type="text/javascript" src="js/vec2/vec2.js"></script>
+    <script type="text/javascript" src="js/kruskal/kruskal.js"></script>
+
+    <link rel="stylesheet" href="css/index.css" type="text/css" />
+    <link rel="stylesheet" href="css/sidebar.css" type="text/css" />
+    <link rel="shortcut icon" href="image/schematic/icon.png" type="image/png" />
+
+    <script type="text/javascript" src="js/schematic/global.js"></script>
+    <script type="text/javascript" src="js/schematic/specs_anchor.js"></script>
+    <script type="text/javascript" src="js/schematic/palette.js"></script>
+    <script type="text/javascript" src="js/schematic/specs_pin.js"></script>
+    <script type="text/javascript" src="js/schematic/rotate_and_mirror.js"></script>
+    <script type="text/javascript" src="js/schematic/component.js"></script>
+    <script type="text/javascript" src="js/schematic/components.js"></script>
+    <script type="text/javascript" src="js/schematic/net.js"></script>
+    <script type="text/javascript" src="js/schematic/nets.js"></script>
+    <script type="text/javascript" src="js/schematic/guide.js"></script>
+    <script type="text/javascript" src="js/schematic/guides.js"></script>
+    <script type="text/javascript" src="js/schematic/anchor.js"></script>
+    <script type="text/javascript" src="js/schematic/label.js"></script>
+    <script type="text/javascript" src="js/schematic/netlist_import_opamp.js"></script>
+    <script type="text/javascript" src="js/schematic/netlist_import.js"></script>
+    <script type="text/javascript" src="js/schematic/autoplace.js"></script>
+    <script type="text/javascript" src="js/schematic/index.js"></script>
+  </head>
+  <body>
+    <nav id="sidebar">
+        <div class="section">Tool</div>
+
+        <button id="tool_select" class="selected" title="Shortcut: &quot;S&quot;&#010;Click will select component (red outline)&#010;Key 'F' will flip component horizontally&#010;Key 'R' will rotate component clockwise&#010;Mouse middle button will pan, wheel to zoom">Select</button>
+        <button id="tool_guide" title="Shortcut: &quot;G&quot;&#010;Add extra guide wire to change where the net goes. Press the mouse near net, drag where the net should go, release where it should end. Ctrl+z to undo. Hold shift while dragging to remove the nearby guides instead of adding them.">Guide wire</button>
+
+        <div class="section">Action</div>
+
+        <button id="tool_undo" title="Shortcut: &quot;Ctrl+Z&quot;&#010;Undo recent changes">Undo</button>
+        <button id="tool_import_netlist" title="Import netlist you made in Stripboard tool">Import netlist</button>
+        <button id="tool_spread" title="Rearrange components by type.">Sort components</button>
+        <button id="tool_export" title="Export this schematic as .schematic file">Export schematic</button>
+        <button id="tool_import" title="Import schematic from .schematic file">Import schematic</button>
+        <button id="tool_clear" title="Remove everything">Clear</button>
+        <button id="tool_clear_guides" title="Remove all guide points">Clear all guides</button>
+        <button id="tool_screenshot" title="Download screenshot at default zoom and with black lines. Hold shift to make screenshot at current zoom.">Screenshot</button>
+        <button id="tool_stripboard" title="Back to stripboard tool">Stripboard</button>
+
+        <div class="section">Show</div>
+
+        <label title="Draw red rectangle around selected component. This is automatically disabled while making screenshot"><input id="show_selection" type="checkbox"/>Selection</label>
+        <label title="Show net numbers and pin names, it is mostly only used for debugging"><input id="show_net_numbers" type="checkbox"/>Net numbers</label>
+        <label title="Where 2 different nets cross, show red rectangle, It may not be error but it makes crossings more noticable."><input id="show_net_crossings" type="checkbox"/>Net crossings</label>
+        <label title="Guide points are hints where nets should go, in select mode double click to place them, in guide wire mode push mouse and drag to place them, like you are drawing a line"><input id="show_guides" type="checkbox"/>Guide points</label>
+        <label title="Switch between color nets (during placement) and black nets (for screenshot)"><input id="show_net_black" type="checkbox"/>Black nets</label>
+
+        <div class="bottom">
+            <a href="help.html#schematic">Help</a>
+            <a href="https://github.com/">Source</a>
+        </div>
+    </nav>
+
+    <!-- layers -->
+    <main>
+        <canvas id="component"></canvas>
+        <canvas id="control"></canvas>
+    </main>
+
+    <footer>
+        <div>X:</div>
+        <div id="status_x">0</div>
+        <div>Y:</div>
+        <div id="status_y">0</div>
+        <div>Zoom:</div>
+        <div id="status_zoom">1</div>
+        <div>Element:</div>
+        <div id="status_element">none</div>
+    </footer>
+
+  </body>
+</html>
+
+
+

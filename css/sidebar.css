@@ -1,0 +1,70 @@
+/* sidebar */
+
+#sidebar {
+    height: calc(100% - 16px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    background-color: silver;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    padding: 0.5ex;
+    box-shadow: 0 0 1ex;
+    font-size: small;
+    user-select: none;
+}
+#sidebar .section {
+    color: black;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 1ex;
+}
+#sidebar button, #sidebar label {
+    text-align: left;
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    outline: none;
+    font-size: small;
+}
+#sidebar input[type=checkbox] {
+    vertical-align: middle;
+}
+#sidebar button.selected {
+    background-color: lime;
+}
+#sidebar button:hover, #sidebar label:hover {
+    background-color: skyblue;
+}
+#sidebar button[disabled] {
+    text-align: center;
+}
+#sidebar button[disabled]:hover {
+    background-color: transparent;
+}
+#sidebar button:active, #sidebar button.selected2 {
+    background-color: lime;
+}
+#sidebar .two_columns_OFF {
+    display: flex;
+    flex-direction: column;
+}
+#sidebar .two_columns {
+    width: 200px;
+    column-count: 2;
+    column-gap: 0;
+}
+#sidebar .two_columns button {
+     white-space: nowrap;
+     width: 100%;
+     display: block;
+}
+#sidebar .bottom {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1ex;
+}
