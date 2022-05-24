@@ -154,14 +154,16 @@ SC.Component.prototype.center = function () {
 SC.Component.prototype.restoreFromComponents = function (aOldComponents) {
     // Restore position, mirror and flip from old components (after netlist reimport from stripboard)
     var i;
-    for (i = 0; i < aOldComponents.item.length; i++) {
-        if (this.name === aOldComponents.item[i].name) {
-            this.x = aOldComponents.item[i].x;
-            this.y = aOldComponents.item[i].y;
-            this.rotate = aOldComponents.item[i].rotate;
-            this.mirror = aOldComponents.item[i].mirror;
-            this.updatePins();
-            return true;
+    if (aOldComponents && aOldComponents.item) {
+        for (i = 0; i < aOldComponents.item.length; i++) {
+            if (this.name === aOldComponents.item[i].name) {
+                this.x = aOldComponents.item[i].x;
+                this.y = aOldComponents.item[i].y;
+                this.rotate = aOldComponents.item[i].rotate;
+                this.mirror = aOldComponents.item[i].mirror;
+                this.updatePins();
+                return true;
+            }
         }
     }
 };
