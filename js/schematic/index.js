@@ -114,7 +114,7 @@ SC.checkUrlProject = function (aCallback) {
         // save it and remove the parameter so that user can make changes without it being overwritten on each refresh
         SC.onSave();
         document.location = 'schematic.html';
-    });
+    }, 'GET');
 };
 
 SC.onLoad = function () {
