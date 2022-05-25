@@ -86,6 +86,37 @@ SC.onSave = function () {
     CA.storage.writeObject('SCHEMATIC.show', SC.show);
 };
 
+SC.checkUrlProject = function (aCallback) {
+    // Check url for project=something, load it from project dir
+    var p = CA.urlParams()['project'];
+    if (!p) {
+        aCallback();
+        return;
+    }
+    if (!p.match(/^[a-z0-9_]+$/)) {
+        alert('Invalid project name: ' + p);
+        aCallback();
+        return;
+    }
+    CA.ajax('project/' + encodeURIComponent(p) + '.schematic', {cache: Date.now()}, function (aOk, aData) {
+        if (!aOk) {
+            alert('Project "' + p + '" not found!');
+            aCallback();
+            return;
+        }
+        var o = JSON.parse(aData);
+        SC.filename = o.filename;
+        SC.v.fromObject(o.viewport);
+        SC.components.fromObject(o.components);
+        SC.nets.fromObject(o.nets);
+        SC.guides.fromObject(o.guides || {item: []});
+        //SC.render();
+        // save it and remove the parameter so that user can make changes without it being overwritten on each refresh
+        SC.onSave();
+        document.location = 'schematic.html';
+    });
+};
+
 SC.onLoad = function () {
     // Load scene from local storage
     SC.filename = CA.storage.readString('SCHEMATIC.filename', SC.filename);
@@ -102,7 +133,7 @@ SC.onLoad = function () {
     SC.e.show_guides.checked = SC.show.guides;
     SC.e.show_net_black.checked = SC.show.net_black;
     SC.onTool({target: {id: 'tool_' + SC.tool}});
-    SC.render();
+    SC.checkUrlProject(SC.render);
 };
 
 SC.onShow = function (event) {
