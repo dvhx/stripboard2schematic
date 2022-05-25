@@ -1,0 +1,536 @@
+{
+ "format": "schematic-0.1",
+ "filename": "naga_viper.schematic",
+ "viewport": {
+  "x": 473,
+  "y": 192,
+  "zoom": 20
+ },
+ "components": {
+  "item": [
+   {
+    "type": "resistor",
+    "name": "R1",
+    "value": "8.2k",
+    "x": -8,
+    "y": 12,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     6,
+     9
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R2",
+    "value": "68k",
+    "x": -12,
+    "y": 12,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     4,
+     9
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R3",
+    "value": "220k",
+    "x": -11,
+    "y": 3,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     4,
+     10
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C1",
+    "value": "47p",
+    "x": -11,
+    "y": 7,
+    "rotate": 1,
+    "mirror": false,
+    "pinNet": [
+     3,
+     4
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C2",
+    "value": "3n3",
+    "x": -14,
+    "y": 9,
+    "rotate": 1,
+    "mirror": false,
+    "pinNet": [
+     4,
+     7
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C3",
+    "value": "68n",
+    "x": -15,
+    "y": 3,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     1,
+     4
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C4",
+    "value": "1n",
+    "x": -16,
+    "y": 11,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     7,
+     9
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C5",
+    "value": "100n",
+    "x": -5,
+    "y": 4,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     2,
+     5
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C6",
+    "value": "40u",
+    "x": -6,
+    "y": 10,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     6,
+     8
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C7",
+    "value": "47u",
+    "x": 11,
+    "y": 8,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     10,
+     9
+    ]
+   },
+   {
+    "type": "transistor_npn",
+    "name": "T1",
+    "value": "2N2222",
+    "x": -9,
+    "y": 9,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     3,
+     4,
+     6
+    ]
+   },
+   {
+    "type": "connector",
+    "name": "Output",
+    "x": -1,
+    "y": 4,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     5
+    ]
+   },
+   {
+    "type": "connector",
+    "name": "Input",
+    "x": -17,
+    "y": 9,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     7
+    ]
+   },
+   {
+    "type": "ground",
+    "name": "Ground",
+    "x": 8,
+    "y": 15,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     9
+    ]
+   },
+   {
+    "type": "dc_voltage_supply",
+    "name": "U1",
+    "value": 9,
+    "x": 8,
+    "y": 8,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     10,
+     9
+    ]
+   },
+   {
+    "type": "potentiometer",
+    "name": "Range",
+    "value": "500K",
+    "x": -16,
+    "y": 5,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     1,
+     7,
+     7
+    ]
+   },
+   {
+    "type": "potentiometer",
+    "name": "Boost",
+    "value": "10k",
+    "x": -8,
+    "y": 4,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     10,
+     2,
+     3
+    ]
+   },
+   {
+    "type": "potentiometer",
+    "name": "Heat",
+    "value": "1k",
+    "x": -3,
+    "y": 12,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     8,
+     8,
+     9
+    ]
+   }
+  ]
+ },
+ "nets": {
+  "item": [
+   {
+    "id": 6,
+    "pins": [
+     {
+      "component": "R1",
+      "pin": 0
+     },
+     {
+      "component": "C6",
+      "pin": 0
+     },
+     {
+      "component": "T1",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 9,
+    "pins": [
+     {
+      "component": "R1",
+      "pin": 1
+     },
+     {
+      "component": "R2",
+      "pin": 1
+     },
+     {
+      "component": "C4",
+      "pin": 1
+     },
+     {
+      "component": "C7",
+      "pin": 1
+     },
+     {
+      "component": "Ground",
+      "pin": 0
+     },
+     {
+      "component": "U1",
+      "pin": 1
+     },
+     {
+      "component": "Heat",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "pins": [
+     {
+      "component": "R2",
+      "pin": 0
+     },
+     {
+      "component": "R3",
+      "pin": 0
+     },
+     {
+      "component": "C1",
+      "pin": 1
+     },
+     {
+      "component": "C2",
+      "pin": 0
+     },
+     {
+      "component": "C3",
+      "pin": 1
+     },
+     {
+      "component": "T1",
+      "pin": 1
+     }
+    ]
+   },
+   {
+    "id": 10,
+    "pins": [
+     {
+      "component": "R3",
+      "pin": 1
+     },
+     {
+      "component": "C7",
+      "pin": 0
+     },
+     {
+      "component": "U1",
+      "pin": 0
+     },
+     {
+      "component": "Boost",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 3,
+    "pins": [
+     {
+      "component": "C1",
+      "pin": 0
+     },
+     {
+      "component": "T1",
+      "pin": 0
+     },
+     {
+      "component": "Boost",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 7,
+    "pins": [
+     {
+      "component": "C2",
+      "pin": 1
+     },
+     {
+      "component": "C4",
+      "pin": 0
+     },
+     {
+      "component": "Input",
+      "pin": 0
+     },
+     {
+      "component": "Range",
+      "pin": 1
+     },
+     {
+      "component": "Range",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 1,
+    "pins": [
+     {
+      "component": "C3",
+      "pin": 0
+     },
+     {
+      "component": "Range",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "pins": [
+     {
+      "component": "C5",
+      "pin": 0
+     },
+     {
+      "component": "Boost",
+      "pin": 1
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "pins": [
+     {
+      "component": "C5",
+      "pin": 1
+     },
+     {
+      "component": "Output",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 8,
+    "pins": [
+     {
+      "component": "C6",
+      "pin": 1
+     },
+     {
+      "component": "Heat",
+      "pin": 0
+     },
+     {
+      "component": "Heat",
+      "pin": 1
+     }
+    ]
+   }
+  ]
+ },
+ "guides": {
+  "item": [
+   {
+    "net": 10,
+    "x": 3,
+    "y": 4
+   },
+   {
+    "net": 10,
+    "x": 4,
+    "y": 4
+   },
+   {
+    "net": 10,
+    "x": 5,
+    "y": 4
+   },
+   {
+    "net": 10,
+    "x": 6,
+    "y": 4
+   },
+   {
+    "net": 10,
+    "x": 7,
+    "y": 4
+   },
+   {
+    "net": 10,
+    "x": 8,
+    "y": 4
+   },
+   {
+    "net": 10,
+    "x": 9,
+    "y": 4
+   },
+   {
+    "net": 9,
+    "x": -12,
+    "y": 15
+   },
+   {
+    "net": 9,
+    "x": -13,
+    "y": 15
+   },
+   {
+    "net": 9,
+    "x": -14,
+    "y": 15
+   },
+   {
+    "net": 9,
+    "x": -15,
+    "y": 15
+   },
+   {
+    "net": 8,
+    "x": -2,
+    "y": 11
+   },
+   {
+    "net": 8,
+    "x": -1,
+    "y": 12
+   },
+   {
+    "net": 7,
+    "x": -14,
+    "y": 7
+   },
+   {
+    "net": 7,
+    "x": -14,
+    "y": 8
+   },
+   {
+    "net": 7,
+    "x": -15,
+    "y": 9
+   },
+   {
+    "net": 3,
+    "x": -7,
+    "y": 8
+   }
+  ]
+ }
+}
