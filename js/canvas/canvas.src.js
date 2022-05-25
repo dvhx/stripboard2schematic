@@ -1,4 +1,4 @@
-// Canvas (custom build 2022-05-23--17-06-12)
+// Canvas (custom build 2022-05-25--09-39-40)
 "use strict";
 // globals: document, window
 
@@ -257,6 +257,75 @@ CA.Canvas.prototype.download = function (aFileName) {
     a.href = this.canvas.toDataURL(mime[ext]);
     document.body.appendChild(a);
     a.click();
+};
+
+
+// file: ajax.js
+// Simplified ajax request
+// globals: document, window, XMLHttpRequest
+// provide: ajax, json
+
+
+CA.ajax = function (aUrl, aParams, aCallback, aMethod) {
+    // Simplified ajax request
+    // Example: CA.ajax("http://example.com/divide/", {a: 22, b: 7}, function (aOk, aResponse) { if (aOk) { alert(aResponse); } );
+    var k, p = [], xhr;
+
+    // params
+    try {
+        for (k in aParams) {
+            if (aParams.hasOwnProperty(k)) {
+                p.push(encodeURIComponent(k) + '=' + encodeURIComponent(aParams[k]));
+            }
+        }
+    } catch (e) {
+        if (aCallback) {
+            aCallback(false, 'ajax: invalid params - ' + e);
+        }
+    }
+
+    // request
+    try {
+        xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                if (aCallback) {
+                    aCallback(true, xhr.responseText, aParams);
+                }
+            }
+            if (xhr.readyState === 4 && xhr.status !== 200) {
+                console.error('ajax failed: #' + xhr.status + ' - ' + xhr.statusText + ' url ' + aUrl);
+                if (aCallback) {
+                    aCallback(false, 'ajax: failed #' + xhr.status + " " + xhr.statusText + ' url ' + aUrl);
+                }
+            }
+        };
+        //aUrl += (aUrl.match('?') ? '&' : '?') + 'ajax_cache_timestampt=' + Date.now();
+        xhr.open(aMethod || "POST", aUrl, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+        xhr.send(p.join('&'));
+    } catch (e) {
+        console.error('ajax: ' + e);
+        if (aCallback) {
+            aCallback(false, 'ajax: ' + e);
+        }
+    }
+};
+
+CA.json = function (aUrl, aParams, aCallback, aMethod) {
+    // Ajax call and parse it as json
+    CA.ajax(aUrl, aParams, function (aOk, aData) {
+        if (!aOk) {
+            return aCallback(aOk, aData);
+        }
+        try {
+            var o = JSON.parse(aData);
+        } catch (e) {
+            console.warn(e, aData);
+            return aCallback(false, e);
+        }
+        return aCallback(aOk, o);
+    }, aMethod);
 };
 
 
@@ -1828,6 +1897,17 @@ CA.removeClass = function (aClassName) {
 CA.unused = function () {
     // Function to suppress linter warnings
     return;
+};
+
+
+// file: utils/urlParams.js
+CA.urlParams = function () {
+    // Get url parameters as associative array
+    var i, o = {}, s = document.location.search.substr(1).split(/[\&\=]/);
+    for (i = 0; i < s.length; i += 2) {
+        o[s[i]] = s[i + 1];
+    }
+    return o;
 };
 
 
