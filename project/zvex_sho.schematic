@@ -1,0 +1,674 @@
+{
+ "format": "schematic-0.1",
+ "filename": "zvex_sho.schematic",
+ "viewport": {
+  "x": 407,
+  "y": -14,
+  "zoom": 20
+ },
+ "components": {
+  "item": [
+   {
+    "type": "capacitor",
+    "name": "C1",
+    "value": "100n",
+    "x": -15,
+    "y": 11,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     1,
+     10
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C2",
+    "value": "10u",
+    "x": -8,
+    "y": 7,
+    "rotate": 1,
+    "mirror": false,
+    "pinNet": [
+     8,
+     9
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R1",
+    "value": "5k1",
+    "x": -10,
+    "y": 5,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     2,
+     9
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R2",
+    "value": "10M",
+    "x": -12,
+    "y": 16,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     4,
+     10
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R3",
+    "value": "10M",
+    "x": -12,
+    "y": 8,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     9,
+     10
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R4",
+    "value": "100k",
+    "x": -4,
+    "y": 10,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     4,
+     8
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R5",
+    "value": "2k2",
+    "x": 5,
+    "y": 7,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     2,
+     7
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C3",
+    "value": "47u",
+    "x": 2,
+    "y": 12,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     2,
+     4
+    ]
+   },
+   {
+    "type": "transistor_n_mosfet",
+    "name": "Q1",
+    "value": "BS170",
+    "x": -11,
+    "y": 11,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     9,
+     10,
+     11
+    ]
+   },
+   {
+    "type": "diode",
+    "name": "D1",
+    "value": "Zenner 9.1V",
+    "x": -14,
+    "y": 15,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     4,
+     10
+    ]
+   },
+   {
+    "type": "connector",
+    "name": "Input",
+    "x": -18,
+    "y": 11,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     1
+    ]
+   },
+   {
+    "type": "connector",
+    "name": "Output",
+    "x": -3,
+    "y": 7,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     8
+    ]
+   },
+   {
+    "type": "dc_voltage_supply",
+    "name": "U1",
+    "value": 9,
+    "x": -1,
+    "y": 12,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     2,
+     4
+    ]
+   },
+   {
+    "type": "ground",
+    "name": "Ground",
+    "x": -1,
+    "y": 19,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     4
+    ]
+   },
+   {
+    "type": "led",
+    "name": "D2",
+    "value": "LED",
+    "x": 5,
+    "y": 12,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     7,
+     4
+    ]
+   },
+   {
+    "type": "potentiometer",
+    "name": "Boost",
+    "value": "5k",
+    "x": -10,
+    "y": 14,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     11,
+     4,
+     4
+    ]
+   }
+  ]
+ },
+ "nets": {
+  "item": [
+   {
+    "id": 1,
+    "pins": [
+     {
+      "component": "C1",
+      "pin": 0
+     },
+     {
+      "component": "Input",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 10,
+    "pins": [
+     {
+      "component": "C1",
+      "pin": 1
+     },
+     {
+      "component": "R2",
+      "pin": 1
+     },
+     {
+      "component": "R3",
+      "pin": 1
+     },
+     {
+      "component": "Q1",
+      "pin": 1
+     },
+     {
+      "component": "D1",
+      "pin": 1
+     }
+    ]
+   },
+   {
+    "id": 8,
+    "pins": [
+     {
+      "component": "C2",
+      "pin": 0
+     },
+     {
+      "component": "R4",
+      "pin": 1
+     },
+     {
+      "component": "Output",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 9,
+    "pins": [
+     {
+      "component": "C2",
+      "pin": 1
+     },
+     {
+      "component": "R1",
+      "pin": 1
+     },
+     {
+      "component": "R3",
+      "pin": 0
+     },
+     {
+      "component": "Q1",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "pins": [
+     {
+      "component": "R1",
+      "pin": 0
+     },
+     {
+      "component": "R5",
+      "pin": 0
+     },
+     {
+      "component": "C3",
+      "pin": 0
+     },
+     {
+      "component": "U1",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "pins": [
+     {
+      "component": "R2",
+      "pin": 0
+     },
+     {
+      "component": "R4",
+      "pin": 0
+     },
+     {
+      "component": "C3",
+      "pin": 1
+     },
+     {
+      "component": "D1",
+      "pin": 0
+     },
+     {
+      "component": "U1",
+      "pin": 1
+     },
+     {
+      "component": "Ground",
+      "pin": 0
+     },
+     {
+      "component": "D2",
+      "pin": 1
+     },
+     {
+      "component": "Boost",
+      "pin": 1
+     },
+     {
+      "component": "Boost",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 7,
+    "pins": [
+     {
+      "component": "R5",
+      "pin": 1
+     },
+     {
+      "component": "D2",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 11,
+    "pins": [
+     {
+      "component": "Q1",
+      "pin": 2
+     },
+     {
+      "component": "Boost",
+      "pin": 0
+     }
+    ]
+   }
+  ]
+ },
+ "guides": {
+  "item": [
+   {
+    "net": 2,
+    "x": 0,
+    "y": 11
+   },
+   {
+    "net": 2,
+    "x": 0,
+    "y": 10
+   },
+   {
+    "net": 2,
+    "x": 0,
+    "y": 9
+   },
+   {
+    "net": 2,
+    "x": 0,
+    "y": 8
+   },
+   {
+    "net": 2,
+    "x": 0,
+    "y": 7
+   },
+   {
+    "net": 2,
+    "x": 0,
+    "y": 6
+   },
+   {
+    "net": 2,
+    "x": 0,
+    "y": 5
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 11
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 10
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 9
+   },
+   {
+    "net": 4,
+    "x": -10,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -9,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -8,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -7,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -6,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -5,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -2,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -1,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": -3,
+    "y": 14
+   },
+   {
+    "net": 4,
+    "x": -3,
+    "y": 15
+   },
+   {
+    "net": 4,
+    "x": -3,
+    "y": 16
+   },
+   {
+    "net": 4,
+    "x": -3,
+    "y": 17
+   },
+   {
+    "net": 4,
+    "x": -3,
+    "y": 18
+   },
+   {
+    "net": 4,
+    "x": -3,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": 0,
+    "y": 16
+   },
+   {
+    "net": 4,
+    "x": 0,
+    "y": 17
+   },
+   {
+    "net": 4,
+    "x": 0,
+    "y": 18
+   },
+   {
+    "net": 4,
+    "x": -8,
+    "y": 17
+   },
+   {
+    "net": 4,
+    "x": -4,
+    "y": 19
+   },
+   {
+    "net": 10,
+    "x": -11,
+    "y": 15
+   },
+   {
+    "net": 10,
+    "x": -11,
+    "y": 14
+   },
+   {
+    "net": 10,
+    "x": -11,
+    "y": 13
+   },
+   {
+    "net": 2,
+    "x": 1,
+    "y": 5
+   },
+   {
+    "net": 2,
+    "x": 2,
+    "y": 5
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 5
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 6
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 7
+   },
+   {
+    "net": 2,
+    "x": 3,
+    "y": 8
+   },
+   {
+    "net": 4,
+    "x": 3,
+    "y": 16
+   },
+   {
+    "net": 4,
+    "x": 3,
+    "y": 17
+   },
+   {
+    "net": 4,
+    "x": 3,
+    "y": 18
+   },
+   {
+    "net": 4,
+    "x": 3,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": 2,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": 1,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": 6,
+    "y": 16
+   },
+   {
+    "net": 4,
+    "x": 6,
+    "y": 17
+   },
+   {
+    "net": 4,
+    "x": 6,
+    "y": 18
+   },
+   {
+    "net": 4,
+    "x": 6,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": 5,
+    "y": 19
+   },
+   {
+    "net": 4,
+    "x": 4,
+    "y": 19
+   },
+   {
+    "net": 2,
+    "x": 6,
+    "y": 6
+   },
+   {
+    "net": 2,
+    "x": 6,
+    "y": 5
+   },
+   {
+    "net": 2,
+    "x": 5,
+    "y": 5
+   },
+   {
+    "net": 2,
+    "x": 4,
+    "y": 5
+   },
+   {
+    "net": 4,
+    "x": -13,
+    "y": 19
+   },
+   {
+    "net": 10,
+    "x": -13,
+    "y": 14
+   },
+   {
+    "net": 10,
+    "x": -12,
+    "y": 14
+   }
+  ]
+ }
+}
