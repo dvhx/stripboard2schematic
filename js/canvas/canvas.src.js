@@ -1,4 +1,4 @@
-// Canvas (custom build 2022-05-25--09-39-40)
+// Canvas (custom build 2022-06-28--07-59-20)
 "use strict";
 // globals: document, window
 
@@ -1107,7 +1107,10 @@ CA.log = function () {
             CA.ajax(CA.defaults.log_server.value, {message: s});
         }
     } else {
-        console.warn('CA.defaults.log_server is missing');
+        if (!CA.log.warnShown) {
+            console.warn('CA.defaults.log_server is missing');
+            CA.log.warnShown = true;
+        }
     }
 };
 
@@ -1530,6 +1533,26 @@ CA.perf = (function () {
 }());
 
 
+// file: shuffle.js
+// Suffle array randomly
+// globals: document, window
+// provide: shuffle
+
+
+CA.shuffle = function (aArray) {
+    // Return randomized shallow copy
+    var i, j, temp, r = aArray.slice(); // slice is shallow
+    for (i = r.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        temp = r[i];
+        r[i] = r[j];
+        r[j] = temp;
+    }
+    return r;
+};
+
+
+
 // file: storage.js
 // Simplified access to localStorage with extra checks
 // globals: localStorage, window
@@ -1805,6 +1828,18 @@ CA.array2d = function (aWidth, aHeight, aValue) {
 };
 
 
+// file: utils/arrayToObject.js
+CA.arrayToObject = function (aArray, aValue, aObject) {
+    // create object (or modify given aObject) with property names from array
+    var o = aObject || {},
+        v = aValue || true;
+    aArray.forEach(function (s) {
+        o[s] = v;
+    });
+    return o;
+};
+
+
 // file: utils/beep.js
 CA.beep = function (aFrequency, aDuration, aVolume, aShape) {
     // Short beep of given frequency in Hz, duration in ms, volume in percent and shape (sine/square/triangle/sawtooth)
@@ -1863,6 +1898,13 @@ CA.focusNext = function (aElement) {
         all[i].select();
     }
     return all[i];
+};
+
+
+// file: utils/randomItem.js
+CA.randomItem = function (aArray) {
+    // Random item from array
+    return aArray[Math.floor(aArray.length * Math.random())];
 };
 
 
@@ -2022,9 +2064,13 @@ CA.Viewport = function (aCanvas, aRenderCallback) {
     t.x = 0;
     t.y = 0;
     t.zoom = 1;
+    t.zoom_enabled = true;
 
     t.canvas.addEventListener('wheel', function (event) {
         // Mouse wheel zooms in/out
+        if (!t.zoom_enabled) {
+            return;
+        }
         if (Math.abs(event.deltaY) === 0) {
             return;
         }
