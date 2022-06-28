@@ -96,7 +96,7 @@ SC.Component.prototype.pinByName = function (aPinName) {
 SC.Component.prototype.image = function () {
     // Return correctly rotated and mirrored image of this component
     var t = this.type;
-    if (this.type === 'capacitor' && this.value.indexOf('u') >= 0) {
+    if (this.type === 'capacitor' && this.value.toString().indexOf('u') >= 0) {
         t = 'capacitor_pol';
     }
     if (!SC.image[t]) {
@@ -125,7 +125,7 @@ SC.Component.prototype.render = function (aContext) {
         for (i = 0; i < this.pin.length; i++) {
             p = this.pinXY(i, true);
             aContext.fillRect(p.x - 2, p.y - 2, 4, 4);
-            aContext.fillText(this.pin[i].pin + ' p' + this.pin[i].index, p.x + 4, p.y);
+            aContext.fillText(this.pin[i].pin + ' p' + this.pin[i].index + ' n' + this.pinNet[i], p.x + 4, p.y);
         }
     }
     // selection
@@ -149,6 +149,13 @@ SC.Component.prototype.center = function () {
         x: this.x + img.width / 2 / SC.gridSize,
         y: this.y + img.height / 2 / SC.gridSize
     };
+};
+
+SC.Component.prototype.moveTo = function (aX, aY) {
+    // Move component to X, Y (used only by netlist_random.js)
+    this.x = aX;
+    this.y = aY;
+    return this;
 };
 
 SC.Component.prototype.restoreFromComponents = function (aOldComponents) {
