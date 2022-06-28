@@ -103,3 +103,12 @@ SC.Components.prototype.center = function () {
     };
 };
 
+SC.Components.prototype.updatePins = function () {
+    // Update pins on all components (used only by netlist_random.js)
+    var i;
+    for (i = 0; i < this.item.length; i++) {
+        this.item[i].updatePins();
+    }
+};
+
+
