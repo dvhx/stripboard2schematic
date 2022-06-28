@@ -89,6 +89,7 @@ SC.onSave = function () {
 SC.checkUrlProject = function (aCallback) {
     // Check url for project=something, load it from project dir
     var p = CA.urlParams()['project'];
+    console.log('project', p);
     if (!p) {
         aCallback();
         return;
@@ -98,12 +99,14 @@ SC.checkUrlProject = function (aCallback) {
         aCallback();
         return;
     }
+    console.log('loading project', p);
     CA.ajax('project/' + encodeURIComponent(p) + '.schematic', {cache: Date.now()}, function (aOk, aData) {
         if (!aOk) {
             alert('Project "' + p + '" not found!');
             aCallback();
             return;
         }
+        SC.lastData = aData;
         var o = JSON.parse(aData);
         SC.filename = o.filename;
         SC.v.fromObject(o.viewport);
@@ -112,6 +115,7 @@ SC.checkUrlProject = function (aCallback) {
         SC.guides.fromObject(o.guides || {item: []});
         //SC.render();
         // save it and remove the parameter so that user can make changes without it being overwritten on each refresh
+        SC.show.net_numbers = false;
         SC.onSave();
         document.location = 'schematic.html';
     }, 'GET');
@@ -180,7 +184,7 @@ SC.importNetlistFromStorage = function () {
     // When both tools live on same domain they can send netlist guide localStorage, this imports the netlist
     if (CA.storage.keyExists('STRIPBOARD.netlist')) {
         var c, o = CA.storage.readObject('STRIPBOARD.netlist'), of = SC.filename;
-        if (confirm('Do you want to import netlist ' + o.filename)) {
+        if (SC.importNetlistWithoutConfirm || confirm('Do you want to import netlist ' + o.filename)) {
             SC.filename = o.filename.split('.')[0] + '.schematic';
             if (of === SC.filename) {
                 SC.netlistImport(o.netlist, SC.components.toObject(), SC.guides.toObject());
