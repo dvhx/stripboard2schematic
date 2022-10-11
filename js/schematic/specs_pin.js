@@ -297,7 +297,7 @@ SC.specsPin = {
     ],
     "transistor_npn_darlington": [
         {
-            "x": 60,
+            "x": 40,
             "y": 0,
             "name": "C"
         },
@@ -307,8 +307,8 @@ SC.specsPin = {
             "name": "B"
         },
         {
-            "x": 60,
-            "y": 60,
+            "x": 40,
+            "y": 40,
             "name": "E"
         }
     ],
@@ -331,18 +331,18 @@ SC.specsPin = {
     ],
     "transistor_pnp_darlington": [
         {
-            "x": 60,
-            "y": 60,
+            "x": 40,
+            "y": 0,
             "name": "C"
         },
         {
             "x": 0,
-            "y": 40,
+            "y": 20,
             "name": "B"
         },
         {
-            "x": 60,
-            "y": 0,
+            "x": 40,
+            "y": 40,
             "name": "E"
         }
     ],
