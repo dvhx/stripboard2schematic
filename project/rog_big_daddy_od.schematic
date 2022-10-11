@@ -1,0 +1,761 @@
+{
+ "format": "schematic-0.1",
+ "filename": "ROG-Big-Daddy-OD.schematic",
+ "viewport": {
+  "x": 502,
+  "y": -146,
+  "zoom": 32
+ },
+ "components": {
+  "item": [
+   {
+    "type": "resistor",
+    "name": "R1",
+    "value": "4.7M",
+    "x": -13,
+    "y": 20,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     12,
+     16
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R2",
+    "value": "15k",
+    "x": -10,
+    "y": 11,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     10,
+     11
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R3",
+    "value": "2.2k",
+    "x": -7,
+    "y": 20,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     12,
+     14
+    ]
+   },
+   {
+    "type": "resistor",
+    "name": "R4",
+    "value": "LED",
+    "x": 11,
+    "y": 14,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     2,
+     10
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C1",
+    "value": "2.2u",
+    "x": -10,
+    "y": 20,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     14,
+     12
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C2",
+    "value": "6.8n",
+    "x": -8,
+    "y": 15,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     11,
+     9
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C3",
+    "value": "100n",
+    "x": 2,
+    "y": 16,
+    "rotate": 1,
+    "mirror": false,
+    "pinNet": [
+     17,
+     13
+    ]
+   },
+   {
+    "type": "capacitor",
+    "name": "C4",
+    "value": "100u",
+    "x": 14,
+    "y": 16,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     10,
+     12
+    ]
+   },
+   {
+    "type": "diode",
+    "name": "D1",
+    "value": "1N5819",
+    "x": 8,
+    "y": 12,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     4,
+     10
+    ]
+   },
+   {
+    "type": "transistor_n_jfet",
+    "name": "Q1",
+    "value": "J201",
+    "x": -11,
+    "y": 17,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     11,
+     16,
+     14
+    ]
+   },
+   {
+    "type": "dip8",
+    "name": "IC1",
+    "value": "LM386",
+    "x": -2,
+    "y": 13,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     5,
+     12,
+     9,
+     12,
+     13,
+     10,
+     8,
+     6
+    ]
+   },
+   {
+    "type": "dc_voltage_supply",
+    "name": "U1",
+    "value": 9,
+    "x": 8,
+    "y": 16,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     4,
+     12
+    ]
+   },
+   {
+    "type": "ground",
+    "name": "Ground",
+    "x": 8,
+    "y": 23,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     12
+    ]
+   },
+   {
+    "type": "connector",
+    "name": "Input",
+    "x": -15,
+    "y": 17,
+    "rotate": 2,
+    "mirror": false,
+    "pinNet": [
+     16
+    ]
+   },
+   {
+    "type": "connector",
+    "name": "Output",
+    "x": 6,
+    "y": 20,
+    "rotate": 1,
+    "mirror": false,
+    "pinNet": [
+     18
+    ]
+   },
+   {
+    "type": "led",
+    "name": "D2",
+    "value": "green",
+    "x": 11,
+    "y": 19,
+    "rotate": 0,
+    "mirror": false,
+    "pinNet": [
+     2,
+     12
+    ]
+   },
+   {
+    "type": "potentiometer",
+    "name": "Drive",
+    "value": "1k",
+    "x": -2,
+    "y": 11,
+    "rotate": 3,
+    "mirror": false,
+    "pinNet": [
+     -1,
+     6,
+     5
+    ]
+   },
+   {
+    "type": "potentiometer",
+    "name": "Volume",
+    "value": "100k",
+    "x": 4,
+    "y": 18,
+    "rotate": 0,
+    "mirror": true,
+    "pinNet": [
+     12,
+     18,
+     17
+    ]
+   }
+  ]
+ },
+ "nets": {
+  "item": [
+   {
+    "id": 12,
+    "pins": [
+     {
+      "component": "R1",
+      "pin": 0
+     },
+     {
+      "component": "R3",
+      "pin": 0
+     },
+     {
+      "component": "C1",
+      "pin": 1
+     },
+     {
+      "component": "C4",
+      "pin": 1
+     },
+     {
+      "component": "IC1",
+      "pin": 1
+     },
+     {
+      "component": "IC1",
+      "pin": 3
+     },
+     {
+      "component": "U1",
+      "pin": 1
+     },
+     {
+      "component": "Ground",
+      "pin": 0
+     },
+     {
+      "component": "D2",
+      "pin": 1
+     },
+     {
+      "component": "Volume",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 16,
+    "pins": [
+     {
+      "component": "R1",
+      "pin": 1
+     },
+     {
+      "component": "Q1",
+      "pin": 1
+     },
+     {
+      "component": "Input",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 10,
+    "pins": [
+     {
+      "component": "R2",
+      "pin": 0
+     },
+     {
+      "component": "R4",
+      "pin": 1
+     },
+     {
+      "component": "C4",
+      "pin": 0
+     },
+     {
+      "component": "D1",
+      "pin": 1
+     },
+     {
+      "component": "IC1",
+      "pin": 5
+     }
+    ]
+   },
+   {
+    "id": 11,
+    "pins": [
+     {
+      "component": "R2",
+      "pin": 1
+     },
+     {
+      "component": "C2",
+      "pin": 0
+     },
+     {
+      "component": "Q1",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 14,
+    "pins": [
+     {
+      "component": "R3",
+      "pin": 1
+     },
+     {
+      "component": "C1",
+      "pin": 0
+     },
+     {
+      "component": "Q1",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 2,
+    "pins": [
+     {
+      "component": "R4",
+      "pin": 0
+     },
+     {
+      "component": "D2",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 9,
+    "pins": [
+     {
+      "component": "C2",
+      "pin": 1
+     },
+     {
+      "component": "IC1",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 17,
+    "pins": [
+     {
+      "component": "C3",
+      "pin": 0
+     },
+     {
+      "component": "Volume",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 13,
+    "pins": [
+     {
+      "component": "C3",
+      "pin": 1
+     },
+     {
+      "component": "IC1",
+      "pin": 4
+     }
+    ]
+   },
+   {
+    "id": 4,
+    "pins": [
+     {
+      "component": "D1",
+      "pin": 0
+     },
+     {
+      "component": "U1",
+      "pin": 0
+     }
+    ]
+   },
+   {
+    "id": 5,
+    "pins": [
+     {
+      "component": "IC1",
+      "pin": 0
+     },
+     {
+      "component": "Drive",
+      "pin": 2
+     }
+    ]
+   },
+   {
+    "id": 8,
+    "pins": [
+     {
+      "component": "IC1",
+      "pin": 6
+     }
+    ]
+   },
+   {
+    "id": 6,
+    "pins": [
+     {
+      "component": "IC1",
+      "pin": 7
+     },
+     {
+      "component": "Drive",
+      "pin": 1
+     }
+    ]
+   },
+   {
+    "id": 18,
+    "pins": [
+     {
+      "component": "Output",
+      "pin": 0
+     },
+     {
+      "component": "Volume",
+      "pin": 1
+     }
+    ]
+   },
+   {
+    "id": -1,
+    "pins": [
+     {
+      "component": "Drive",
+      "pin": 0
+     }
+    ]
+   }
+  ]
+ },
+ "guides": {
+  "item": [
+   {
+    "net": 6,
+    "x": 1,
+    "y": 13
+   },
+   {
+    "net": 12,
+    "x": -5,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": -4,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": -2,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": -1,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 0,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 1,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 2,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 6,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 3,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 4,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 5,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 12,
+    "y": 23
+   },
+   {
+    "net": 10,
+    "x": 12,
+    "y": 13
+   },
+   {
+    "net": 10,
+    "x": 12,
+    "y": 12
+   },
+   {
+    "net": 10,
+    "x": 12,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 11,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 10,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 9,
+    "y": 11
+   },
+   {
+    "net": 10,
+    "x": 9,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 7,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 6,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 2,
+    "y": 15
+   },
+   {
+    "net": 10,
+    "x": 2,
+    "y": 16
+   },
+   {
+    "net": 10,
+    "x": -9,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 2,
+    "y": 13
+   },
+   {
+    "net": 10,
+    "x": 1,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 2,
+    "y": 10
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 22
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 21
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 20
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 19
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 18
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 17
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 16
+   },
+   {
+    "net": 12,
+    "x": -3,
+    "y": 15
+   },
+   {
+    "net": 10,
+    "x": 15,
+    "y": 15
+   },
+   {
+    "net": 10,
+    "x": 15,
+    "y": 14
+   },
+   {
+    "net": 10,
+    "x": 15,
+    "y": 13
+   },
+   {
+    "net": 10,
+    "x": 15,
+    "y": 12
+   },
+   {
+    "net": 10,
+    "x": 15,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 14,
+    "y": 10
+   },
+   {
+    "net": 10,
+    "x": 13,
+    "y": 10
+   },
+   {
+    "net": 12,
+    "x": 15,
+    "y": 20
+   },
+   {
+    "net": 12,
+    "x": 15,
+    "y": 21
+   },
+   {
+    "net": 12,
+    "x": 15,
+    "y": 22
+   },
+   {
+    "net": 12,
+    "x": 15,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 14,
+    "y": 23
+   },
+   {
+    "net": 12,
+    "x": 13,
+    "y": 23
+   },
+   {
+    "net": 16,
+    "x": -12,
+    "y": 18
+   },
+   {
+    "net": 11,
+    "x": -9,
+    "y": 16
+   }
+  ]
+ }
+}
