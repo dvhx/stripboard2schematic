@@ -212,11 +212,6 @@ SC.specsTransistor = {
         "package": "TO-92",
         "pinout": "EBC"
     },
-    "2N5952": {
-        "kind": "N_JFET",
-        "package": "TO-92",
-        "pinout": "GSD"
-    },
     "2N2907": {
         "kind": "PNP",
         "package": "TO-92",
@@ -231,6 +226,21 @@ SC.specsTransistor = {
         "kind": "N_JFET",
         "package": "TO-92",
         "pinout": "DSG"
+    },
+    "2N5952": {
+        "kind": "N_JFET",
+        "package": "TO-92",
+        "pinout": "GSD"
+    },
+    "BF245A": {
+        "kind": "N_JFET",
+        "package": "TO-92",
+        "pinout": "GSD"
+    },
+    "2SK30A": {
+        "kind": "N_JFET",
+        "package": "TO-92",
+        "pinout": "SGD"
     },
     "2SK246": {
         "kind": "N_JFET",
@@ -366,5 +376,10 @@ SC.specsTransistor = {
         "kind": "N_REGULATOR",
         "package": "TO-220",
         "pinout": "GIO"
+    },
+    "LM317": {
+        "kind": "P_REGULATOR",
+        "package": "TO-220",
+        "pinout": "GOI"
     }
 };
