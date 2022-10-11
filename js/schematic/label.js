@@ -23,7 +23,7 @@ SC.renderLabel.universal = function (aContext, aComponent) {
     if (!r) {
         r = SC.anchorBoxes(e, SC.specsAnchor[aComponent.type] || SC.specsAnchor.universal);
     }
-    aContext.font = Math.floor(9 * z) + 'px sans-serif';
+    aContext.font = Math.floor(12 * z) + 'px sans-serif';
     aContext.fillStyle = 'black';
     // name
     aContext.textAlign = r.a.textAlign;
