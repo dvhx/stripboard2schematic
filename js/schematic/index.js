@@ -245,6 +245,46 @@ SC.onUndo = function () {
     SC.render();
 };
 
+SC.onPartsList = function () {
+    // Download json partslist for WCIB
+    var a = [], i, b = {}, p = 0, t = 0;
+    SC.components.toObject().item.forEach(function (e) {
+        if (e.type === 'ground' || (e.type === 'connector' && (e.name === 'Input' || e.name === 'Output'))) {
+            return;
+        }
+        if (e.type === 'potentiometer') {
+            p++;
+            e.name = 'P' + p + '_' + e.name;
+        }
+        if (e.type === 'transistor') {
+            t++;
+            e.name = 'T' + t + '_' + e.name;
+        }
+        a.push({name: e.name, type: e.type, value: e.value});
+    });
+    a = a.sort(function (u, v) {
+        if (u.type === v.type) {
+            return parseFloat(u.name.match(/[0-9]+/)) - parseFloat(v.name.match(/[0-9]+/));
+        }
+        if (u.name === v.name) {
+            return 0;
+        }
+        return u.name < v.name ? -1 : +1;
+    });
+    for (i = 0; i < a.length; i++) {
+        console.log(a[i].name, a[i]);
+        b[a[i].name] = a[i].value;
+    }
+    b = {
+        name: SC.filename,
+        author: '',
+        article: 'https://',
+        schematic: 'schematic.png',
+        parts: b
+    };
+    CA.download(JSON.stringify(b, undefined, 4), SC.filename + '_parts.json');
+};//SC.onPartsList();
+
 window.addEventListener('DOMContentLoaded', function () {
     // Initialize
     SC.e = CA.elementsWithId();
@@ -270,6 +310,7 @@ window.addEventListener('DOMContentLoaded', function () {
     SC.e.tool_import_netlist.onclick = SC.onImportNetlist;
     SC.e.tool_spread.onclick = SC.onSpread;
     SC.e.tool_stripboard.onclick = SC.onStripboard;
+    SC.e.tool_parts_list.onclick = SC.onPartsList;
 
     // layers
     SC.layer = {
