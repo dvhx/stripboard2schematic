@@ -106,6 +106,78 @@ SC.onNetlist = function () {
     CA.download(JSON.stringify(n.netlist, undefined, 4), fn + '.netlist');
 };
 
+SC.onPartsList = function () {
+    // Download json partslist for WCIB
+    var a = [], i, b = {}, p = 0, t = 0,
+        net = SC.netlist();
+    net.netlist.forEach(function (e) {
+        if (e.type === 'ground' || (e.type === 'connector' && (e.name === 'Input' || e.name === 'Output'))) {
+            return;
+        }
+        if (e.type === 'potentiometer') {
+            p++;
+            e.name = 'P' + p + '_' + e.name;
+        }
+        if (e.type.indexOf('transistor') >= 0) {
+            if (e.type.indexOf('_regulator') < 0) {
+                //t++;
+                //e.name = 'T' + t + '_' + e.name.replace(/^Q/, '');
+                e.name = e.name.replace(/^Q/, 'T');
+            }
+        }
+        a.push({name: e.name.replace(/^IC/, 'Q'), type: e.type, value: e.value});
+    });
+
+    for (i in net.spst) {
+        if (net.spst.hasOwnProperty(i)) {
+            a.push({name: i, type: 'SPST', value: 'SPST'});
+        }
+    }
+    for (i in net.spdt) {
+        if (net.spdt.hasOwnProperty(i)) {
+            a.push({name: i, type: 'SPDT', value: 'SPDT'});
+        }
+    }
+    for (i in net.dpdt) {
+        if (net.dpdt.hasOwnProperty(i)) {
+            a.push({name: i, type: 'DPDT', value: 'DPDT'});
+        }
+    }
+
+    a = a.sort(function (u, v) {
+        if (u.type === v.type) {
+            return parseFloat(u.name.match(/[0-9]+/)) - parseFloat(v.name.match(/[0-9]+/));
+        }
+        if (u.name === v.name) {
+            return 0;
+        }
+        return u.name < v.name ? -1 : +1;
+    });
+    for (i = 0; i < a.length; i++) {
+        //console.log(a[i].name, a[i]);
+        if (a[i].value === undefined) {
+            console.warn(a[i]);
+        }
+        b[a[i].name] = a[i].value ? a[i].value.toString() : a[i].value;
+    }
+    b = {
+        name: SC.filename,
+        author: '',
+
+        "url": {
+            "schematic": "",
+            "stripboard": "",
+            "perfboard": "",
+            "pcb": "",
+            "tagboard": "",
+            "pedal": ""
+        },
+
+        parts: b
+    };
+    CA.download(JSON.stringify(b, undefined, 4), SC.filename + '_parts.json');
+};
+
 SC.onSchematic = function () {
     // Export netlist and open it in schematic.html
     var n = SC.netlist(), fn = SC.filename.split('.')[0];
@@ -230,14 +302,21 @@ SC.onShow = function (event) {
     SC.render();
 };
 
-SC.onBgImage = function () {
+SC.onBgImage = function (event) {
     // Let user choose image, resize it, save it as url data string
+    if (event.ctrlKey) {
+        var s = prompt('Image URL', 'https://').trim();
+        if (s) {
+            SC.filename = s;
+            SC.grid.image.src = s;
+        }
+        return;
+    }
     CA.chooseImage(function (aCanvas, aFilename) {
         SC.filename = aFilename.split('.')[0] + '.stripboard';
         CA.reduceColors(aCanvas, 8);
         var a = aCanvas.toDataURL('image/png'),
-            b = aCanvas.toDataURL('image/jpeg', 0.8),
-            s;
+            b = aCanvas.toDataURL('image/jpeg', 0.8);
         console.log('png', a.length);
         console.log('jpg', b.length);
         s = a.length < b.length ? a : b;
@@ -313,6 +392,7 @@ window.addEventListener('DOMContentLoaded', function () {
     SC.e.tool_import.onclick = SC.onImport;
     SC.e.tool_netlist.onclick = SC.onNetlist;
     SC.e.tool_schematic.onclick = SC.onSchematic;
+    SC.e.tool_parts_list.onclick = SC.onPartsList;
 
     SC.layer = {
         ground: CA.canvas('ground'),
@@ -342,10 +422,13 @@ window.addEventListener('DOMContentLoaded', function () {
         'image/stripboard/diode.png',
         'image/stripboard/led.png',
         'image/stripboard/ldr.png',
+        'image/stripboard/TO-1.png',
+        'image/stripboard/TO-5.png',
         'image/stripboard/TO-92.png',
         'image/stripboard/TO-126.png',
         'image/stripboard/TO-220.png',
         'image/stripboard/trimmer.png',
+        'image/stripboard/trimmer_inline.png',
         'image/stripboard/pot_start.png',
         'image/stripboard/pot_wiper.png',
         'image/stripboard/pot_end.png'
