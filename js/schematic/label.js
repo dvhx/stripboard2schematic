@@ -14,6 +14,7 @@ SC.renderLabel.universal = function (aContext, aComponent) {
     // Render name and value
     var z = SC.v.zoom / SC.gridSize,
         e = aComponent,
+        fs = 12,
         p = SC.v.canvasToScreen(aComponent.x, aComponent.y),
         r;
     aContext.globalAlpha = 1;
@@ -23,7 +24,11 @@ SC.renderLabel.universal = function (aContext, aComponent) {
     if (!r) {
         r = SC.anchorBoxes(e, SC.specsAnchor[aComponent.type] || SC.specsAnchor.universal);
     }
-    aContext.font = Math.floor(12 * z) + 'px sans-serif';
+    if (aComponent.type === 'opamp_triangle_3pin') {
+        fs = 10;
+    }
+    console.log(aComponent);
+    aContext.font = Math.floor(fs * z) + 'px sans-serif';
     aContext.fillStyle = 'black';
     // name
     aContext.textAlign = r.a.textAlign;
