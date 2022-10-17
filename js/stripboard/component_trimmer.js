@@ -4,7 +4,7 @@
 
 var SC = window.SC || {};
 
-SC.Trimmer = function (aName, aX1, aY1, aX2, aY2) {
+SC.Trimmer = function (aName, aX1, aY1, aX2, aY2, aInline) {
     this.type = 'trimmer';
     this.name = aName;
     this.x1 = aX1 || 0;
@@ -12,6 +12,7 @@ SC.Trimmer = function (aName, aX1, aY1, aX2, aY2) {
     this.x2 = aX2 || 0;
     this.y2 = aY2 || 0;
     this.value = '50k';
+    this.inline = false;
 };
 
 SC.factory.trimmer = SC.Trimmer;
@@ -26,7 +27,8 @@ SC.Trimmer.prototype.toObject = function () {
         y1: this.y1,
         x2: this.x2,
         y2: this.y2,
-        value: this.value
+        value: this.value,
+        inline: this.inline
     };
 };
 
@@ -39,6 +41,7 @@ SC.Trimmer.prototype.fromObject = function (aObject) {
     this.x2 = aObject.x2;
     this.y2 = aObject.y2;
     this.value = aObject.value;
+    this.inline = aObject.inline;
 };
 
 SC.Trimmer.prototype.validator = function () {
@@ -61,6 +64,9 @@ SC.Trimmer.prototype.wiper = function () {
     var a = vec2(this.x1, this.y1),
         b = vec2(this.x2, this.y2),
         s = b.sub(a);
+    if (this.inline) {
+        return a.add(b).mul(0.5).round();
+    }
     return a.add(s.mul(0.5)).add(s.right()).round();
 };
 
@@ -69,6 +75,9 @@ SC.Trimmer.prototype.center = function () {
     var a = vec2(this.x1, this.y1),
         b = vec2(this.x2, this.y2),
         s = b.sub(a);
+    if (this.inline) {
+        return a.add(b).mul(0.5).round();
+    }
     return a.add(s.mul(0.5)).add(s.right().mul(0.5));
 };
 
@@ -128,7 +137,11 @@ SC.Trimmer.prototype.render = function (aContext) {
         return;
     }
     // package
-    SC.renderDefault(aContext, this.x1, this.y1, this.x2, this.y2, SC.image.trimmer, '', '', 30, 22);
+    if (this.inline) {
+        SC.renderDefault(aContext, this.x1, this.y1, this.x2, this.y2, SC.image.trimmer_inline, '', '', 43, 42);
+    } else {
+        SC.renderDefault(aContext, this.x1, this.y1, this.x2, this.y2, SC.image.trimmer, '', '', 30, 22);
+    }
     // name + value
     aContext.globalAlpha = 1;
     aContext.strokeStyle = 'black';
@@ -146,6 +159,13 @@ SC.Trimmer.prototype.render = function (aContext) {
 
 SC.Trimmer.prototype.propertiesDialog = function (aCallback) {
     // Show properties dialog
-    return SC.propertiesDialog(this, 'Ω', aCallback);
+    var t = this, a, d = SC.propertiesDialog(this, 'Ω', function (aButton) {
+        if (aButton === 'Save') {
+            t.inline = a.input.checked;
+        }
+        aCallback(aButton);
+    });
+    a = CA.labelCheckboxLabel(d.dlg.content, 'Inline', this.inline, '(multiturn standing trimmer)');
+    a.div.title = 'Inline means standing multiturn pot with pins in straight line';
 };
 
