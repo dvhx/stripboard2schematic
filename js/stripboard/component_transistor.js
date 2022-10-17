@@ -135,7 +135,18 @@ SC.Transistor.prototype.render = function (aContext) {
     aContext.fill();
     // package
     if (SC.image[this.package]) {
-        SC.renderDefault(aContext, this.x1, this.y1, this.x2, this.y2, SC.image[this.package], this.name, this.model, 37, 37);
+        SC.renderDefault(
+            aContext,
+            this.x1,
+            this.y1,
+            this.x2,
+            this.y2,
+            SC.image[this.package],
+            this.name,
+            this.model,
+            SC.specsPackage[this.package].x,
+            SC.specsPackage[this.package].y
+        );
     }
     // pinout
     aContext.fillStyle = 'white';
@@ -184,7 +195,7 @@ SC.Transistor.prototype.propertiesDialog = function (aCallback) {
     d.kind = CA.labelInput(d.dlg.content, 'Kind', CA.select(['NPN', 'PNP', 'NPN_DARLINGTON', 'PNP_DARLINGTON', 'N_MOSFET', 'P_MOSFET', 'N_JFET', 'P_REGULATOR', 'N_REGULATOR']), ' ');
     d.kind.input.value = t.kind;
     // package
-    d.package = CA.labelInput(d.dlg.content, 'Package', CA.select(['TO-92', 'TO-126', 'TO-220', 'OTHER']), ' ');
+    d.package = CA.labelInput(d.dlg.content, 'Package', CA.select(['TO-1', 'TO-5', 'TO-92', 'TO-126', 'TO-220', 'OTHER']), ' ');
     d.package.input.value = t.package;
     // pinout
     d.pinout = CA.labelInput(d.dlg.content, 'Pinout', CA.select(['EBC', 'ECB', 'BEC', 'BCE', 'CEB', 'CBE', 'SGD', 'SDG', 'GSD', 'GDS', 'DSG', 'DGS', 'OGI', 'GIO', 'IGO']), ' ');
