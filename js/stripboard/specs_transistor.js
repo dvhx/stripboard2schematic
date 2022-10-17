@@ -37,6 +37,16 @@ SC.specsTransistor = {
         "package": "TO-92",
         "pinout": "CBE"
     },
+    "BC108": {
+        "kind": "NPN",
+        "package": "TO-1",
+        "pinout": "CBE"
+    },
+    "BC338": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "CBE"
+    },
     "2N5401": {
         "kind": "PNP",
         "package": "TO-92",
@@ -132,10 +142,40 @@ SC.specsTransistor = {
         "package": "TO-92",
         "pinout": "EBC"
     },
+    "2N5089": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "EBC"
+    },
+    "2N5306": {
+        "kind": "NPN_DARLINGTON",
+        "package": "TO-92",
+        "pinout": "EBC"
+    },
     "BC549": {
         "kind": "NPN",
         "package": "TO-92",
         "pinout": "CBE"
+    },
+    "2N1307": {
+        "kind": "PNP",
+        "package": "TO-5",
+        "pinout": "CBE"
+    },
+    "2N3391": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "ECB"
+    },
+    "BC184C": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "CBE"
+    },
+    "BC169B": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "ECB"
     },
     "BC550": {
         "kind": "NPN",
@@ -157,10 +197,45 @@ SC.specsTransistor = {
         "package": "TO-92",
         "pinout": "CBE"
     },
+    "BC239": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "CBE"
+    },
+    "BC109": {
+        "kind": "NPN",
+        "package": "TO-1",
+        "pinout": "CBE"
+    },
     "TIP120": {
         "kind": "NPN_DARLINGTON",
         "package": "TO-220",
         "pinout": "BCE"
+    },
+    "2N2925": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "EBC"
+    },
+    "AC176": {
+        "kind": "NPN",
+        "package": "TO-5",
+        "pinout": "CBE"
+    },
+    "MPS8098": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "EBC"
+    },
+    "BC213L": {
+        "kind": "PNP",
+        "package": "TO-92",
+        "pinout": "EBC"
+    },
+    "BC183L": {
+        "kind": "NPN",
+        "package": "TO-92",
+        "pinout": "ECB"
     },
     "BD136": {
         "kind": "PNP",
@@ -207,6 +282,11 @@ SC.specsTransistor = {
         "package": "TO-92",
         "pinout": "EBC"
     },
+    "2N4402": {
+        "kind": "PNP",
+        "package": "TO-92",
+        "pinout": "CBE"
+    },
     "2N4125": {
         "kind": "PNP",
         "package": "TO-92",
@@ -218,6 +298,11 @@ SC.specsTransistor = {
         "pinout": "CBE"
     },
     "J201": {
+        "kind": "N_JFET",
+        "package": "TO-92",
+        "pinout": "DSG"
+    },
+    "MPF102": {
         "kind": "N_JFET",
         "package": "TO-92",
         "pinout": "DSG"
@@ -381,5 +466,15 @@ SC.specsTransistor = {
         "kind": "P_REGULATOR",
         "package": "TO-220",
         "pinout": "GOI"
+    },
+    "NKT213": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
+    },
+    "NKT275": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "CBE"
     }
 };

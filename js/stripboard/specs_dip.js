@@ -45,9 +45,21 @@ SC.specsDip = {
             "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
             "schematic": "dip,dip8_opamp_dual,opamp_dual"
         },
+        "LM1458": {
+            "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
+            "schematic": "dip,dip8_opamp_dual,opamp_dual"
+        },
         "NE5532": {
             "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
             "schematic": "dip,dip8_opamp_dual,opamp_dual"
+        },
+        "OP275": {
+            "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
+            "schematic": "dip,dip8_opamp_dual,opamp_dual"
+        },
+        "NE5534": {
+            "pinout": "OFS1,IN-,IN+,V-,OFS2,OUT,V+,NC",
+            "schematic": "dip,dip8_opamp_single,opamp_single,opamp_single_offset"
         },
         "JRC4558": {
             "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
@@ -73,13 +85,45 @@ SC.specsDip = {
             "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
             "schematic": "dip,dip8_opamp_dual,opamp_dual"
         },
+        "TL022": {
+            "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
+            "schematic": "dip,dip8_opamp_dual,opamp_dual"
+        },
         "TL082": {
             "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
             "schematic": "dip,dip8_opamp_dual,opamp_dual"
         },
+        "MAX1044": {
+            "pinout": "BOOST,CAP+,GND,CAP-,VOUT,LV,OSC,V+",
+            "schematic": "dip"
+        },
         "V3102": {
             "pinout": "GND,CLK1,VDD,CLK2,OX3,OX2,OX1,VGG",
             "schematic": "dip"
+        },
+        "CA3080": {
+            "pinout": "NC1,IN-,IN+,V-,OFS2,OUT,V+,NC2",
+            "schematic": "dip"
+        },
+        "MN3007": {
+            "pinout": "GND,CP1,IN,VCC,VDD,CP2,OUT1,OUT2",
+            "schematic": "dip"
+        },
+        "MN3101": {
+            "pinout": "GND,CLK1,VDD,CLK2,OX3,OX2,OX1,VGG",
+            "schematic": "dip"
+        },
+        "M5216L": {
+            "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
+            "schematic": "dip,dip8_opamp_dual,opamp_dual"
+        },
+        "ICL7660SCPA": {
+            "pinout": "BOOST,CAP+,GND,CAP-,VOUT,LV,OSC,V+",
+            "schematic": "dip"
+        },
+        "LM308N": {
+            "pinout": "OFS1,IN-,IN+,V-,NC,OUT,V+,OFS2",
+            "schematic": "dip,dip8_opamp_single,opamp_single,opamp_single_offset"
         }
     },
     "4x7": {
@@ -92,6 +136,10 @@ SC.specsDip = {
             "schematic": "dip,dip8_opamp_quad,opamp_quad"
         },
         "TL084": {
+            "pinout": "OUT1,IN1-,IN1+,V+,IN2+,IN2-,OUT2,OUT3,IN3-,IN3+,V-,IN4+,IN4-,OUT4",
+            "schematic": "dip,dip8_opamp_quad,opamp_quad"
+        },
+        "LM324": {
             "pinout": "OUT1,IN1-,IN1+,V+,IN2+,IN2-,OUT2,OUT3,IN3-,IN3+,V-,IN4+,IN4-,OUT4",
             "schematic": "dip,dip8_opamp_quad,opamp_quad"
         },
@@ -111,6 +159,14 @@ SC.specsDip = {
         },
         "V571": {
             "pinout": "RCAP1,RIN1,CIN1,GND,INV_IN1,R31,OUT1,THD1,THD2,OUT2,R32,INV_IN2,VCC,CIN2,RIN2,RCAP2",
+            "schematic": "dip"
+        },
+        "CD4049": {
+            "pinout": "VDD,Q1,A1,Q2,A2,Q3,A3,GND,A4,Q4,A5,Q5,NC,A6,Q6,NC",
+            "schematic": "dip"
+        },
+        "LM13700": {
+            "pinout": "AB1,DB1,IN1+,IN1-,OUT1,V-,BI1,BO1,BO2,BI2,V+,OUT2,IN2-,IN2+,DB2,AB2",
             "schematic": "dip"
         }
     }
