@@ -27,7 +27,7 @@ SC.renderLabel.universal = function (aContext, aComponent) {
     if (aComponent.type === 'opamp_triangle_3pin') {
         fs = 10;
     }
-    console.log(aComponent);
+    //console.log(aComponent);
     aContext.font = Math.floor(fs * z) + 'px sans-serif';
     aContext.fillStyle = 'black';
     // name
