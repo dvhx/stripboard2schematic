@@ -75,6 +75,25 @@ SC.onImport = function () {
     }, '.schematic', true);
 };
 
+SC.onImportPlacement = function () {
+    // Import placement from other schematic file
+    CA.chooseFiles(function (aFiles) {
+        var o = JSON.parse(aFiles[0].data);
+        console.log(o);
+        SC.copyPlacement(o);
+        /*
+        SC.filename = o.filename;
+        SC.v.fromObject(o.viewport);
+        SC.components.fromObject(o.components);
+        SC.nets.fromObject(o.nets);
+        SC.guides.fromObject(o.guides || {item: []});
+        SC.render();
+        */
+    }, '.schematic', true);
+};
+
+
+
 SC.onSave = function () {
     // Save current scene to local storage
     CA.storage.writeString('SCHEMATIC.tool', SC.tool);
@@ -266,6 +285,7 @@ window.addEventListener('DOMContentLoaded', function () {
     SC.e.tool_clear_guides.onclick = SC.onClearGuides;
     SC.e.tool_export.onclick = SC.onExport;
     SC.e.tool_import.onclick = SC.onImport;
+    SC.e.tool_import_placement.onclick = SC.onImportPlacement;
     SC.e.tool_screenshot.onclick = SC.onScreenshot;
     SC.e.tool_import_netlist.onclick = SC.onImportNetlist;
     SC.e.tool_spread.onclick = SC.onSpread;
