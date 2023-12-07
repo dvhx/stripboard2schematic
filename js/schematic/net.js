@@ -119,8 +119,17 @@ SC.Net.prototype.render = function (aContext) {
     // find minimum spanning tree
     kr = window.kruskalCoords(pt);
     this.kruskal = kr;
+    // choose color
+    if (typeof this.id === 'string') {
+        a = 0;
+        for (i = 0; i < this.id.length; i++) {
+            a += this.id.charCodeAt(i) << 7;
+        }
+        this.color = SC.palette[a % SC.palette.length];
+    } else {
+        this.color = SC.palette[this.id % SC.palette.length];
+    }
     // draw segments
-    this.color = SC.palette[this.id % SC.palette.length];
     aContext.font = '10px sans-serif';
     aContext.globalAlpha = 1;
     aContext.lineWidth = lw;
