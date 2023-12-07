@@ -199,6 +199,34 @@ SC.onImportNetlist = function () {
     }, '.netlist', true);
 };
 
+SC.onImportPedalgen = function () {
+    // Import netlist made in pedalgen
+    CA.chooseFiles(function (aFiles) {
+        console.log(aFiles[0]);
+        var c, data = JSON.parse(aFiles[0].data);
+
+        // translate some ngspicejs components to stripboard2schematic names
+        console.log(data);
+        data = data.map(function (o) {
+            if (o.type === 'npn' || o.type === 'pnp') {
+                o.type = 'transistor_' + o.type;
+            }
+            o.nets = o.nets.map(function (n) {
+                return n === 0 ? 'gnd' : n;
+            });
+            return o;
+        });
+        console.log(data);
+
+        SC.netlistImport(data); // , SC.components.toObject()
+        SC.filename = aFiles[0].name;
+        SC.v.zoom = 20;
+        c = SC.components.center();
+        SC.v.centerTo(c.x, c.y);
+        SC.render();
+    }, '.netlist', true);
+};
+
 SC.importNetlistFromStorage = function () {
     // When both tools live on same domain they can send netlist guide localStorage, this imports the netlist
     if (CA.storage.keyExists('STRIPBOARD.netlist')) {
@@ -288,6 +316,18 @@ window.addEventListener('DOMContentLoaded', function () {
     SC.e.tool_import_placement.onclick = SC.onImportPlacement;
     SC.e.tool_screenshot.onclick = SC.onScreenshot;
     SC.e.tool_import_netlist.onclick = SC.onImportNetlist;
+    SC.e.tool_import_pedalgen.onclick = SC.onImportPedalgen;
+    if (document.location.hash.match('#pedalgen')) {
+        SC.e.tool_import_pedalgen.style.color = 'blue';
+    }
+    if (document.location.hash === '#pedalgen') {
+        CA.modalDialog('Pedalgen import', 'Do you want to import "schematic.netlist" file you generated in pedalgen?', ['Yes', 'No'], function (aButton) {
+            if (aButton === 'Yes') {
+                SC.onImportPedalgen();
+            }
+        });
+        document.location.hash = '#pedalgen_done';
+    }
     SC.e.tool_spread.onclick = SC.onSpread;
     SC.e.tool_stripboard.onclick = SC.onStripboard;
 
