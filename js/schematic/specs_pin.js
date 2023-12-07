@@ -14,6 +14,18 @@ SC.specsPin = {
             "name": "B"
         }
     ],
+    "sinewave": [
+        {
+            "x": 20,
+            "y": 0,
+            "name": "A"
+        },
+        {
+            "x": 20,
+            "y": 60,
+            "name": "B"
+        }
+    ],
     "ldr": [
         {
             "x": 20,
@@ -199,6 +211,18 @@ SC.specsPin = {
         }
     ],
     "dc_voltage_supply": [
+        {
+            "x": 20,
+            "y": 0,
+            "name": "P"
+        },
+        {
+            "x": 20,
+            "y": 60,
+            "name": "N"
+        }
+    ],
+    "battery": [
         {
             "x": 20,
             "y": 0,
