@@ -1,4 +1,4 @@
-// Canvas (custom build 2022-06-28--07-59-20)
+// Canvas (custom build 2023-12-08--11-47-46)
 "use strict";
 // globals: document, window
 
@@ -429,7 +429,7 @@ CA.browser = (function () {
 
 // file: choose_files.js
 // Let user choose files and pass their content to callback
-// globals: window, document, FileReader
+// globals: window, document, FileReader, Image
 
 
 CA.chooseFiles = function (aCallbackFiles, aMime, aSingleFile, aReadAsDataURL) {
@@ -479,7 +479,7 @@ CA.chooseFiles = function (aCallbackFiles, aMime, aSingleFile, aReadAsDataURL) {
             reader.myName = file.name;
             reader.myCount = files.length;
             if (aReadAsDataURL) {
-                reader.readAsDataURL(file)
+                reader.readAsDataURL(file);
             } else {
                 reader.readAsBinaryString(file);
             }
@@ -533,6 +533,31 @@ CA.chooseImage = function (aCallback, aMaxWidthHeight) {
     });
     file_input.click();
 };
+
+// file: clipboard.js
+// Copy text to clipboard
+// globals: document, window, setTimeout
+// provide: copyToClipboard
+
+
+CA.copyToClipboard = function (aText) {
+    // Copy text to clipboard
+    var input = document.createElement('textarea');
+    input.style.position = 'fixed';
+    input.style.left = 0;
+    input.style.top = 0;
+    input.style.width = '10px';
+    input.style.height = '10px';
+    input.style.opacity = 0;
+    document.body.appendChild(input);
+    input.value = aText;
+    input.select();
+    document.execCommand("copy");
+    setTimeout(function () {
+        input.parentElement.removeChild(input);
+    }, 5000);
+};
+
 
 // file: distance_point_line.js
 // Distance from point to infinite line
@@ -724,7 +749,6 @@ CA.intervalIntersection = function (a, b) {
     }
     // no overlap returns undefined
 };
-
 
 console.assert(CA.intervalIntersection([0, 10], [7, 20]).join(' ') === '7 10');
 console.assert(CA.intervalIntersection([7, 20], [0, 10]).join(' ') === '7 10');
