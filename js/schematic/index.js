@@ -317,6 +317,7 @@ window.addEventListener('DOMContentLoaded', function () {
     SC.e.tool_screenshot.onclick = SC.onScreenshot;
     SC.e.tool_import_netlist.onclick = SC.onImportNetlist;
     SC.e.tool_import_pedalgen.onclick = SC.onImportPedalgen;
+    SC.e.tool_share.onclick = SC.onShare;
     if (document.location.hash.match('#pedalgen')) {
         SC.e.tool_import_pedalgen.style.color = 'blue';
     }
@@ -353,6 +354,14 @@ window.addEventListener('DOMContentLoaded', function () {
     SC.loadImagesAndTransform(SC.specsPin, function () {
         SC.onLoad();
         SC.importNetlistFromStorage();
+
+        if (SC.netlistImportPedalgenFromUrl) {
+            SC.netlistImportPedalgenFromUrl();
+        }
+        if (SC.shareableImport) {
+            SC.shareableImport();
+        }
+
         // undo
         SC.undo = new CA.Undo({
             components: SC.components,
