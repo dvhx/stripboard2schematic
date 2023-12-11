@@ -355,19 +355,19 @@ window.addEventListener('DOMContentLoaded', function () {
         SC.onLoad();
         SC.importNetlistFromStorage();
 
-        if (SC.netlistImportPedalgenFromUrl) {
-            SC.netlistImportPedalgenFromUrl();
-        }
-        if (SC.shareableImport) {
-            SC.shareableImport();
-        }
-
         // undo
         SC.undo = new CA.Undo({
             components: SC.components,
             nets: SC.nets,
             guides: SC.guides
         }, 30, 3600);
+
+        if (SC.netlistImportPedalgenFromUrl) {
+            SC.netlistImportPedalgenFromUrl();
+        }
+        if (SC.shareableImport) {
+            SC.shareableImport();
+        }
     });
 
     SC.layer.control.canvas.addEventListener('dblclick', function (event) {
