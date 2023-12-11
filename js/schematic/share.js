@@ -1,6 +1,6 @@
 // Create shareable url with schematic data in url
 // linter: ngspicejs-lint
-/* global document, window, console, CA, URL, URLSearchParams, alert */
+/* global document, window, CA, URL, URLSearchParams, alert */
 "use strict";
 
 var SC = window.SC || {};
@@ -27,7 +27,8 @@ SC.shareableExport = function () {
 
 SC.shareableImport = function () {
     // Import schematic from url ?share=resistor,R1,10k,vcc,out,10,10,3,0|resistor,R2,20k,out,0,20,10,3,0|
-    var s = (new URLSearchParams(document.location.search)).get('share');
+    var params = new URLSearchParams(document.location.search);
+    var s = params.get('share');
     if (!s) {
         return;
     }
@@ -35,6 +36,7 @@ SC.shareableImport = function () {
     s = s.split('|').map((a) => a.split(','));
     //console.log(s);
     var ret = [];
+    var has_position = false;
     s.forEach((a) => {
         // guides
         if (a[0] === 'g') {
@@ -52,6 +54,8 @@ SC.shareableImport = function () {
             a.push(0);
             a.push(0);
             a.push(0);
+        } else {
+            has_position = true;
         }
         ret.push({
             type: a[0],
@@ -64,21 +68,48 @@ SC.shareableImport = function () {
             mirror: a[3 + n + 3] === '1' ? true : false
         });
     });
-    console.log(ret);
+    //console.log(ret);
     SC.netlistImport(ret);
     s.forEach((a) => {
         if (a[0] === 'g') {
             SC.guides.item.push(new SC.Guide(a[1], parseInt(a[2], 10), parseInt(a[3], 10)));
         }
     });
-    console.log(SC.guides.item);
+    //console.log(SC.guides.item);
     SC.filename = 'shared_shematic';
     SC.v.zoom = 20;
     var c = SC.components.center();
     SC.v.centerTo(c.x, c.y);
     SC.render();
-    console.log('presmerovavam');
-    document.location = 'schematic.html';
+
+    // if url does not contain positions, spread components
+    if (!has_position) {
+        SC.onSpread();
+        var old = {item: [
+            {name: 'IN', x: -13, y: 10, rotate: 2, mirror: false},
+            {name: 'CIN', x: -10, y: 10, rotate: 3, mirror: false},
+            {name: 'V2', x: 23, y: 8, rotate: 0, mirror: false},
+            {name: 'Ground', x: 23, y: 19, rotate: 0, mirror: false},
+            {name: 'COUT', x: 17, y: 12, rotate: 3, mirror: false},
+            {name: 'OUT', x: 21, y: 12, rotate: 0, mirror: false}
+        ]};
+        var is_interface = {};
+        old.item.forEach((o) => {
+            var e = SC.components.findByName(o.name);
+            if (e) {
+                e.restoreFromComponents(old);
+                is_interface[o.name] = true;
+            }
+        });
+        SC.autoplace2(is_interface, {minx: -7, miny: -2, maxx: 16, maxy: 22});
+        var cen = SC.components.center();
+        SC.v.centerTo(cen.x, cen.y);
+        SC.render();
+    }
+    // redirect to same page without url params so that user can reload page
+    if (params.get('reload') !== 'false') {
+        document.location = 'schematic.html';
+    }
 };
 
 SC.onShare = function () {
