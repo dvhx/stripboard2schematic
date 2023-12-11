@@ -105,7 +105,7 @@ SC.Net.prototype.drawDotsWhere3Intersects = function (aContext, aSeg, aPinPoints
 
 SC.Net.prototype.render = function (aContext) {
     // Render this net
-    var i, s, a, b, pt = [],
+    var i, s, a, b, pt = [], len = 0,
         kr, cpins = [],
         lw = 2 * SC.v.zoom / SC.gridSize;
     // find all component pins
@@ -130,24 +130,32 @@ SC.Net.prototype.render = function (aContext) {
         this.color = SC.palette[this.id % SC.palette.length];
     }
     // draw segments
-    aContext.font = '10px sans-serif';
-    aContext.globalAlpha = 1;
-    aContext.lineWidth = lw;
-    aContext.strokeStyle = SC.show.net_black ? 'black' : this.color;
-    aContext.fillStyle = SC.show.net_black ? 'black' : this.color;
-    for (i = 0; i < kr.length; i++) {
-        a = SC.v.canvasToScreen(kr[i].x1, kr[i].y1);
-        b = SC.v.canvasToScreen(kr[i].x2, kr[i].y2);
-        aContext.beginPath();
-        aContext.moveTo(a.x, a.y);
-        aContext.lineTo(b.x, b.y);
-        aContext.stroke();
-        //if (SC.show.net_numbers) {
-        //aContext.fillText('n' + this.id, (a.x + b.x) / 2 + 4, (a.y + b.y) / 2);
-        //}
+    if (aContext) {
+        aContext.font = '10px sans-serif';
+        aContext.globalAlpha = 1;
+        aContext.lineWidth = lw;
+        aContext.strokeStyle = SC.show.net_black ? 'black' : this.color;
+        aContext.fillStyle = SC.show.net_black ? 'black' : this.color;
+        for (i = 0; i < kr.length; i++) {
+            a = SC.v.canvasToScreen(kr[i].x1, kr[i].y1);
+            b = SC.v.canvasToScreen(kr[i].x2, kr[i].y2);
+            len += CA.distance(kr[i].x1, kr[i].y1, kr[i].x2, kr[i].y2);
+            aContext.beginPath();
+            aContext.moveTo(a.x, a.y);
+            aContext.lineTo(b.x, b.y);
+            aContext.stroke();
+            //if (SC.show.net_numbers) {
+            //aContext.fillText('n' + this.id, (a.x + b.x) / 2 + 4, (a.y + b.y) / 2);
+            //}
+        }
+        // draw dots in intersections
+        this.drawDotsWhere3Intersects(aContext, kr, cpins, this.id);
+    } else {
+        for (i = 0; i < kr.length; i++) {
+            len += CA.distance(kr[i].x1, kr[i].y1, kr[i].x2, kr[i].y2);
+        }
     }
-    // draw dots in intersections
-    this.drawDotsWhere3Intersects(aContext, kr, cpins, this.id);
+    return len;
 };
 
 SC.Net.prototype.distanceTo = function (aX, aY) {
