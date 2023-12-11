@@ -33,8 +33,9 @@ SC.Nets.prototype.render = function (aContext) {
     // Render all nets
     var i, j, k, l, p, a, b, s, t, z, size = 8 * SC.v.zoom / SC.gridSize;
     // nets
+    this.total_length = 0;
     for (i = 0; i < this.item.length; i++) {
-        this.item[i].render(aContext);
+        this.total_length += this.item[i].render(aContext);
     }
     // show red squares where different nets cross
     this.intersects = 0;
