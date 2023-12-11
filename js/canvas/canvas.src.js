@@ -1,4 +1,4 @@
-// Canvas (custom build 2023-12-08--11-47-46)
+// Canvas (custom build 2023-12-11--11-56-26)
 "use strict";
 // globals: document, window
 
@@ -1922,6 +1922,13 @@ CA.focusNext = function (aElement) {
         all[i].select();
     }
     return all[i];
+};
+
+
+// file: utils/randomInt.js
+CA.randomInt = function (aMin, aMax) {
+    // Random int from given range, including extremes
+    return Math.floor(Math.random() * (aMax - aMin + 1)) + aMin;
 };
 
 
