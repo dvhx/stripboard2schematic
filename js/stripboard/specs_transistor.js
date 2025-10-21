@@ -7,6 +7,11 @@ SC.specsTransistor = {
         "package": "TO-92",
         "pinout": "CBE"
     },
+    "AC128": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "CBE"
+    },
     "2N3904": {
         "kind": "NPN",
         "package": "TO-92",
@@ -123,6 +128,11 @@ SC.specsTransistor = {
         "pinout": "EBC"
     },
     "MPSA12": {
+        "kind": "NPN_DARLINGTON",
+        "package": "TO-92",
+        "pinout": "EBC"
+    },
+    "MPSA13": {
         "kind": "NPN_DARLINGTON",
         "package": "TO-92",
         "pinout": "EBC"
@@ -475,6 +485,36 @@ SC.specsTransistor = {
     "NKT275": {
         "kind": "PNP",
         "package": "TO-1",
-        "pinout": "CBE"
+        "pinout": "EBC"
+    },
+    "OC71": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
+    },
+    "OC44": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
+    },
+    "OC45": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
+    },
+    "OC78": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
+    },
+    "OC81D": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
+    },
+    "OC81": {
+        "kind": "PNP",
+        "package": "TO-1",
+        "pinout": "EBC"
     }
 };

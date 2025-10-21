@@ -79,15 +79,19 @@ for (i = 1; i < t.length; i++) {
     pin = c[2];
     x = parseInt(c[3], 10);
     y = parseInt(c[4], 10);
-    if (i === t.length - 1) {
-        a.push({x: x, y: y, name: pin});
+    if (i === t.length) {
+        if (!Number.isNaN(x)) {
+            a.push({x: x, y: y, name: pin});
+        }
         break;
     }
     if (name !== '' || i === t.length - 1) {
         a = [];
         o[name] = a;
     }
-    a.push({x: x, y: y, name: pin});
+    if (!Number.isNaN(x)) {
+        a.push({x: x, y: y, name: pin});
+    }
 }
 fs.writeFileSync(
     '../js/schematic/specs_pin.js', 

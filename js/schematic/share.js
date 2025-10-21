@@ -49,7 +49,7 @@ SC.shareableImport = function () {
         }
         var n = SC.specsPin[a[0]].length;
         //console.warn(a, n, 3 + n);
-        if (a.length <= 3 + n) {
+        if ((a.length <= 3 + n) || (a[0] === 'inductor_coupling')) {
             a.push(0);
             a.push(0);
             a.push(0);
@@ -62,9 +62,9 @@ SC.shareableImport = function () {
             name: a[1],
             value: a[2],
             nets: a.slice(3, 3 + n),
-            x: parseInt(a[3 + n], 10),
-            y: parseInt(a[3 + n + 1], 10),
-            rotate: parseInt(a[3 + n + 2], 10),
+            x: parseInt(a[3 + n], 10) || 0,
+            y: parseInt(a[3 + n + 1], 10) || 0,
+            rotate: parseInt(a[3 + n + 2], 10) || 0,
             mirror: a[3 + n + 3] === '1' ? true : false
         });
     });

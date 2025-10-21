@@ -160,3 +160,6 @@ id	type	pin	x	y
 159		P14	60	60
 160		P15	60	40
 161		P16	60	20
+162	ammeter	P	20	0
+163		N	20	60
+164	inductor_coupling	NC	NC	NC

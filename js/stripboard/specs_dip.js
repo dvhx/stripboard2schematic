@@ -117,7 +117,7 @@ SC.specsDip = {
             "pinout": "OUT1,IN1-,IN1+,V-,IN2+,IN2-,OUT2,V+",
             "schematic": "dip,dip8_opamp_dual,opamp_dual"
         },
-        "ICL7660SCPA": {
+        "ICL7660S": {
             "pinout": "BOOST,CAP+,GND,CAP-,VOUT,LV,OSC,V+",
             "schematic": "dip"
         },
@@ -145,6 +145,10 @@ SC.specsDip = {
         },
         "V3205D": {
             "pinout": "GND,CP2,NC,NC,NC,OUT1,OUT2,VDD,CP1,NC,NC,NC,IN,VCC",
+            "schematic": "dip"
+        },
+        "CD4070": {
+            "pinout": "A1,B1,Q1,Q2,A2,B2,GND,A3,B3,Q3,Q4,A4,B4,VDD",
             "schematic": "dip"
         }
     },

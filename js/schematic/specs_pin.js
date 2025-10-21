@@ -880,5 +880,18 @@ SC.specsPin = {
             "y": 20,
             "name": "P16"
         }
-    ]
+    ],
+    "ammeter": [
+        {
+            "x": 20,
+            "y": 0,
+            "name": "P"
+        },
+        {
+            "x": 20,
+            "y": 60,
+            "name": "N"
+        }
+    ],
+    "inductor_coupling": []
 };

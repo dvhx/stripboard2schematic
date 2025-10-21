@@ -36,10 +36,10 @@ SC.Component.prototype.fromObject = function (aObject) {
     this.type = aObject.type;
     this.name = aObject.name;
     this.value = aObject.value;
-    this.x = aObject.x;
-    this.y = aObject.y;
-    this.rotate = aObject.rotate;
-    this.mirror = aObject.mirror;
+    this.x = aObject.x || 0;
+    this.y = aObject.y || 0;
+    this.rotate = aObject.rotate || 0;
+    this.mirror = aObject.mirror || false;
     this.pinNet = aObject.pinNet || [];
     this.updatePins();
 };

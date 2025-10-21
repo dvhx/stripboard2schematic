@@ -15,7 +15,10 @@ SC.anchor = function (aComponent, aAnchorX, aAnchorY) {
         }
         return x;
     }
+
     switch (aComponent.rotate) {
+    case null:
+    case undefined:
     case 0:
         return {
             x: mirror(aAnchorX),

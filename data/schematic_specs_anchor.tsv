@@ -32,3 +32,5 @@ id	type	name_x1	name_y1	name_x2	name_y2	value_x1	value_y1	value_x2	value_y2
 31	transistor_p_regulator	7	10	32	13	7	-8	32	3
 32	transistor_n_regulator	7	10	32	13	7	-8	32	3
 33	sinewave	29	9	39	25	29	33	39	50
+34	ammeter	15	25	25	35	15	25	25	35
+35	inductor_coupling	15	25	25	35	15	45	25	55
