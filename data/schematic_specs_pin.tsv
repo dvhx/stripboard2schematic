@@ -162,4 +162,11 @@ id	type	pin	x	y
 161		P16	60	20
 162	ammeter	P	20	0
 163		N	20	60
-164	inductor_coupling	NC	NC	NC
+164	ota_triangle_5pin	IN+	0	20
+165		DB	0	40
+166		IN-	0	60
+167		OUT	80	40
+168		IB	60	80
+169	ota_buffer	BI	0	20
+170		BO	60	20
+171	inductor_coupling	NC	20	0

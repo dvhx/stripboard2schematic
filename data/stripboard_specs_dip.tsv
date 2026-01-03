@@ -39,4 +39,4 @@ id	model	size	pinout	schematic
 38	CD4049	4x8	VDD,Q1,A1,Q2,A2,Q3,A3,GND,A4,Q4,A5,Q5,NC,A6,Q6,NC	dip
 39	ICL7660S	4x4	BOOST,CAP+,GND,CAP-,VOUT,LV,OSC,V+	dip
 40	LM308N	4x4	OFS1,IN-,IN+,V-,NC,OUT,V+,OFS2	dip,dip8_opamp_single,opamp_single,opamp_single_offset
-41	LM13700	4x8	AB1,DB1,IN1+,IN1-,OUT1,V-,BI1,BO1,BO2,BI2,V+,OUT2,IN2-,IN2+,DB2,AB2	dip
+41	LM13700	4x8	AB1,DB1,IN1+,IN1-,OUT1,V-,BI1,BO1,BO2,BI2,V+,OUT2,IN2-,IN2+,DB2,AB2	dip,ota_dual

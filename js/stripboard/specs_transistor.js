@@ -516,5 +516,10 @@ SC.specsTransistor = {
         "kind": "PNP",
         "package": "TO-1",
         "pinout": "EBC"
+    },
+    "TL431": {
+        "kind": "V_REFERENCE",
+        "package": "TO-92",
+        "pinout": "RAC"
     }
 };

@@ -171,7 +171,7 @@ SC.specsDip = {
         },
         "LM13700": {
             "pinout": "AB1,DB1,IN1+,IN1-,OUT1,V-,BI1,BO1,BO2,BI2,V+,OUT2,IN2-,IN2+,DB2,AB2",
-            "schematic": "dip"
+            "schematic": "dip,ota_dual"
         }
     }
 };

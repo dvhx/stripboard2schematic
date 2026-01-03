@@ -893,5 +893,50 @@ SC.specsPin = {
             "name": "N"
         }
     ],
-    "inductor_coupling": []
+    "ota_triangle_5pin": [
+        {
+            "x": 0,
+            "y": 20,
+            "name": "IN+"
+        },
+        {
+            "x": 0,
+            "y": 40,
+            "name": "DB"
+        },
+        {
+            "x": 0,
+            "y": 60,
+            "name": "IN-"
+        },
+        {
+            "x": 80,
+            "y": 40,
+            "name": "OUT"
+        },
+        {
+            "x": 60,
+            "y": 80,
+            "name": "IB"
+        }
+    ],
+    "ota_buffer": [
+        {
+            "x": 0,
+            "y": 20,
+            "name": "BI"
+        },
+        {
+            "x": 60,
+            "y": 20,
+            "name": "BO"
+        }
+    ],
+    "inductor_coupling": [
+        {
+            "x": 20,
+            "y": 0,
+            "name": "NC"
+        }
+    ]
 };

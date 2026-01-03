@@ -139,6 +139,9 @@ SC.ConnectorPot.prototype.propertiesDialog = function (aCallback) {
             t.pot_start = d.pot_start.input.checked;
             t.pot_wiper = d.pot_wiper.input.checked;
             t.pot_end = d.pot_end.input.checked;
+            if (!t.pot_start && !t.pot_wiper && !t.pot_end) {
+                alert('You must select at least 1 pot connector!');
+            }
         }
         SC.render();
     });

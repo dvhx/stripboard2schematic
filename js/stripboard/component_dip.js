@@ -234,7 +234,8 @@ SC.Dip.prototype.propertiesDialog = function (aCallback) {
         'opamp_single': 'Opamp 1 triangle',
         'opamp_single_offset': 'Opamp 1 triangle + offset circuit',
         'opamp_dual': 'Opamp 2 triangles',
-        'opamp_quad': 'Opamp 4 triangles'
+        'opamp_quad': 'Opamp 4 triangles',
+        'ota_dual': 'OTA 2 triangles + 2 buffers',
     }), ' ');
     dlg.schematic.input.value = t.schematic;
     if (SC.specsDip[size] && SC.specsDip[size][dlg.value.input.value]) {

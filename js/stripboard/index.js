@@ -125,6 +125,9 @@ SC.onPartsList = function () {
                 e.name = e.name.replace(/^Q/, 'T');
             }
         }
+        if (e.type.indexOf('_regulator') >= 0) {
+            e.name = e.name + '_REG';
+        }
         a.push({name: e.name.replace(/^IC/, 'Q'), type: e.type, value: e.value});
     });
 
@@ -157,6 +160,9 @@ SC.onPartsList = function () {
         //console.log(a[i].name, a[i]);
         if (a[i].value === undefined) {
             console.warn(a[i]);
+        }
+        if (b[a[i].name]) {
+            alert('Duplicate name ' + a[i].name);
         }
         b[a[i].name] = a[i].value ? a[i].value.toString() : a[i].value;
     }
